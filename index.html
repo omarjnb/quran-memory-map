@@ -4,7 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="خريطة لحفظ القرآن الكريم: الأجزاء والقصص، ومعاني الكلمات الغريبة، والمتشابهات، ومصحف ملوّن بأحكام التجويد، وتسميع بالصوت أو الكتابة.">
+<style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <meta name="theme-color" content="#1D6B58">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="حفظ القرآن">
 <style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <title>خريطة حفظ القرآن</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -184,32 +191,46 @@ mark{background:var(--gold-soft);color:var(--ink);border-bottom:2px solid var(--
 .rsetup{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:end;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
 .rsetup label{display:grid;gap:4px;font-size:13px;color:var(--muted);font-weight:700}
 .rsetup select,.rsetup input{font:15px var(--body);padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);max-width:100%}
-.rsetup input{width:90px}
-#rPanel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px}
-.rhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.rprev{font-family:var(--display);font-size:19px;color:var(--muted);line-height:1.9}
-.rprev:empty{display:none}
-.rtarget{font-family:var(--display);font-size:26px;line-height:2.1;min-height:60px;background:var(--page);border:1px solid var(--page-edge);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
-.w{border-radius:4px;padding-inline:3px;position:relative}
-.w.pend{color:transparent;border-bottom:2px dotted var(--line);min-width:2.2em;display:inline-block}
+.rsetup input{width:84px}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.seg button{font:700 14px var(--body);border:0;background:var(--bg);color:var(--muted);padding:8px 12px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--surface)}
+.btn.big{font-size:16px;padding:10px 28px}
+#rPanel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:0 0 16px;display:grid;gap:12px}
+.rtop{background:var(--surface);border-bottom:1px solid var(--line);border-radius:12px 12px 0 0;padding:12px 16px;display:grid;gap:8px}
+.rinfo{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+#rPanel>*:not(.rtop){margin-inline:16px}
+.rview{font-family:var(--display);font-size:26px;line-height:2.2;background:var(--page);border:1px solid var(--page-edge);border-radius:8px;padding:12px 16px;max-height:60vh;overflow-y:auto}
+.ra{border-radius:6px}
+.ra.curay{background:color-mix(in srgb,var(--gold-soft) 60%,transparent)}
+.w{border-radius:4px;padding-inline:2px;margin-inline:3px;display:inline-block;line-height:1.5;vertical-align:baseline}
+.w.pend{color:transparent;border-bottom:2px dotted color-mix(in srgb,var(--muted) 60%,transparent)}
+.w.pend b{color:var(--gold);font-weight:700}
+.w.pend.faint{color:color-mix(in srgb,var(--ink) 35%,transparent)}
+.w.cur{border-bottom:3px solid var(--accent);animation:blink 1.2s ease-in-out infinite}
+@keyframes blink{50%{border-bottom-color:transparent}}
 .w.ok{color:var(--done)}
 .w.near{color:var(--gold);background:var(--gold-soft)}
 .w.bad{color:#C62828;background:color-mix(in srgb,#C62828 12%,transparent)}
-.w.miss{color:#C62828;border:1px dashed #C62828}
-.w.extra{color:var(--muted);text-decoration:line-through}
+.w.miss{color:#C62828;outline:1px dashed #C62828;outline-offset:-1px}
+.w.extra{color:var(--muted);text-decoration:line-through;font-size:.75em}
 .w.hint{color:var(--accent);background:var(--accent-soft)}
 .w small{display:block;font:12px var(--body);color:var(--muted);text-align:center;line-height:1.2;text-decoration:none}
-.rtarget .anum{font-size:20px}
-#rIn{font:20px var(--display);padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;resize:vertical;line-height:1.8}
+.rview .anum{font-size:20px;cursor:pointer}
+.rheard{font-size:14px;color:var(--muted);min-height:1.4em}
+.rheard b{color:var(--ink);font-weight:500}
+#rIn{font:20px var(--display);padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:auto;resize:vertical;line-height:1.8}
 .rmsg{font-size:15px;font-weight:700;min-height:1.5em}
 .rmsg.good{color:var(--done)} .rmsg.warn{color:#C62828}
 .rlegend{display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
-.rlegend .w{font:13px var(--body);padding:1px 8px}
+.rlegend .w{font:13px var(--body);padding:1px 8px;margin:0}
 #rMic.rec{background:#C62828;border-color:#C62828}
-.rweak{font-size:14px;color:var(--muted);margin-bottom:12px}
+.rweak{font-size:14px;color:var(--muted);margin-bottom:12px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .rweak b{color:var(--ink)}
 #rSummary{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px;margin-top:14px}
 #rSummary table{min-width:0}
+#rSummary tr.bad td{color:#C62828}
+@media (prefers-reduced-motion:reduce){.w.cur{animation:none}}
 .note{font-size:13px;color:var(--muted);margin-top:28px;max-width:70ch}
 @media (max-width:520px){ ul.stories li{grid-template-columns:1fr;gap:0} .juz{padding:16px} }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -269,29 +290,40 @@ mark{background:var(--gold-soft);color:var(--ink);border-bottom:2px solid var(--
 
   <section id="p-recite" role="tabpanel" hidden>
     <h2>التسميع والتصحيح</h2>
-    <p class="sub">اختر السورة والآيات، ثم رتّل من حفظك بالميكروفون أو اكتب الآيات. يقارن التطبيق كلامك بنص الآية كلمةً كلمة، ويبيّن الكلمات الصحيحة والخاطئة والناقصة، والأخطاء الإملائية البسيطة.</p>
+    <p class="sub">اختر المقطع واضغط «ابدأ»، ثم رتّل من حفظك متتابعًا كما تقرأ في الصلاة. تظهر الكلمات في مكانها وأنت تقرأ، وينتقل التطبيق من آية إلى آية وحده. وفي النهاية تُعرض الأخطاء والآيات التي تحتاج مراجعة.</p>
     <div class="rsetup">
       <label>السورة <select id="rSel"></select></label>
-      <label>من الآية <input type="number" id="rFrom" min="1" value="1"></label>
-      <label>إلى الآية <input type="number" id="rTo" min="1" value="7"></label>
-      <button class="btn pri" id="rStart">ابدأ التسميع</button>
+      <label>من الآية <input type="number" id="rFrom" min="1" value="1" inputmode="numeric"></label>
+      <label>إلى الآية <input type="number" id="rTo" min="1" value="7" inputmode="numeric"></label>
+      <button class="btn" id="rWhole" type="button">السورة كاملة</button>
+      <div class="seg" role="radiogroup" aria-label="طريقة التسميع">
+        <button type="button" data-mode="voice" aria-pressed="true">بالصوت</button>
+        <button type="button" data-mode="type" aria-pressed="false">بالكتابة</button>
+      </div>
+      <div class="seg" role="radiogroup" aria-label="إظهار الكلمات">
+        <button type="button" data-level="hide" aria-pressed="true">مخفية</button>
+        <button type="button" data-level="first" aria-pressed="false">أول حرف</button>
+        <button type="button" data-level="show" aria-pressed="false">ظاهرة</button>
+      </div>
+      <button class="btn pri big" id="rStart">ابدأ</button>
     </div>
     <div id="rWeak" class="rweak"></div>
     <div id="rPanel" hidden>
-      <div class="rhead"><b id="rPos"></b><span class="score" id="rScoreTop"></span></div>
-      <div class="rprev" id="rPrev"></div>
-      <div class="rtarget" id="rTarget" aria-live="polite"></div>
-      <textarea id="rIn" rows="3" dir="rtl" placeholder="اكتب الآية من حفظك هنا… أو اضغط «رتّل بالصوت» وابدأ القراءة"></textarea>
-      <div class="row">
-        <button class="btn pri" id="rMic">رتّل بالصوت</button>
-        <button class="btn pri" id="rCheck">تحقّق</button>
-        <button class="btn" id="rHint">تلميح: الكلمة التالية</button>
-        <button class="btn" id="rShow">أظهر الآية</button>
-        <button class="btn" id="rRetry">أعد الآية</button>
-        <button class="btn" id="rNext">الآية التالية</button>
+      <div class="rtop">
+        <div class="rinfo"><b id="rPos"></b><span class="score" id="rCount"></span></div>
+        <div class="bar"><i id="rBar"></i></div>
+        <div class="row">
+          <button class="btn pri" id="rMic">إيقاف مؤقت</button>
+          <button class="btn" id="rHint">الكلمة التالية</button>
+          <button class="btn pri" id="rFinish">إنهاء وتصحيح</button>
+          <button class="btn" id="rAgain">من جديد</button>
+        </div>
       </div>
+      <div class="rview" id="rView" aria-live="polite"></div>
+      <div class="rheard" id="rHeard"></div>
+      <textarea id="rIn" rows="3" dir="rtl" placeholder="اكتب من حفظك هنا، بلا تشكيل…" hidden></textarea>
       <div class="rmsg" id="rMsg"></div>
-      <div class="rlegend"><span class="w ok">صحيحة</span><span class="w near">خطأ إملائي بسيط</span><span class="w bad">خطأ</span><span class="w miss">ناقصة</span><span class="w extra">زائدة</span><span class="w hint">تلميح</span></div>
+      <div class="rlegend"><span class="w ok">صحيحة</span><span class="w near">قريبة (تأكّد منها)</span><span class="w bad">خطأ</span><span class="w miss">ناقصة</span><span class="w hint">بتلميح</span><span class="w extra">زائدة</span></div>
     </div>
     <div id="rSummary" hidden></div>
   </section>
@@ -933,133 +965,201 @@ let QS2=null,qsLoading=null;
 function loadSimple(){ if(QS2) return Promise.resolve(QS2);
   if(!qsLoading) qsLoading=new Promise((res,rej)=>{const sc=document.createElement("script");sc.src="quran-simple.js";sc.onload=()=>{QS2=window.QURAN_SIMPLE;res(QS2);};sc.onerror=()=>{qsLoading=null;rej();};document.head.appendChild(sc);});
   return qsLoading; }
-const rSel=document.getElementById("rSel"), rFrom=document.getElementById("rFrom"), rTo=document.getElementById("rTo");
+const $=id=>document.getElementById(id);
+const rSel=$("rSel"), rFrom=$("rFrom"), rTo=$("rTo");
 rSel.innerHTML=S.map(x=>`<option value="${x[0]}">${ar(x[0])}. سورة ${esc(x[1])}</option>`).join("");
 function setRange(s,from,to){ rSel.value=s; const n=S[s-1][2]; rFrom.max=rTo.max=n; rFrom.value=from||1; rTo.value=to||Math.min(n,(from||1)+9); }
 rSel.onchange=()=>setRange(+rSel.value,1);
 setRange(pref("qmm-rs",1),1);
+let rMode=pref("qmm-rmode","voice"), rLevel=pref("qmm-rlevel","hide");
+function paintSeg(){ document.querySelectorAll("[data-mode]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===rMode));
+  document.querySelectorAll("[data-level]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.level===rLevel)); }
+document.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{rMode=b.dataset.mode;setPref("qmm-rmode",rMode);paintSeg();});
+document.querySelectorAll("[data-level]").forEach(b=>b.onclick=()=>{rLevel=b.dataset.level;setPref("qmm-rlevel",rLevel);paintSeg();if(!$("rPanel").hidden)update();});
+paintSeg();
+$("rWhole").onclick=()=>{const s=+rSel.value;setRange(s,1,S[s-1][2]);};
+
+/* تطبيع الكلمات */
 const nrm=w=>w.replace(/[ً-ْٰـۖ-ۭ]/g,"").replace(/[أإآٱ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه").replace(/ؤ/g,"و").replace(/ئ/g,"ي").replace(/[^ء-ي]/g,"");
-const toWords=t=>t.split(/\s+/).map(w=>({raw:w,n:nrm(w)})).filter(w=>w.n);
-function lev(a,b){const m=a.length,n=b.length;let p=Array.from({length:n+1},(_,j)=>j);for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c;}return p[n];}
-function simW(a,b){ if(a===b) return "ok"; const d=lev(a,b), L=Math.max(a.length,b.length); if((d===1&&L>=3)||(d===2&&L>=7)) return "near"; return null; }
-/* محاذاة كلمات الآية المتوقعة مع كلمات القارئ */
-function align(exp,got){
-  const m=exp.length,n=got.length,C=[],B=[];
-  for(let i=0;i<=m;i++){C.push(new Array(n+1).fill(0));B.push(new Array(n+1).fill(0));}
-  for(let i=1;i<=m;i++){C[i][0]=i;B[i][0]=1;} for(let j=1;j<=n;j++){C[0][j]=j;B[0][j]=2;}
+const VAR=[["رحمان","رحمن"],["هاذا","هذا"],["هاذه","هذه"],["هاؤلاء","هؤلاء"],["هاولاء","هولاء"],["ذالك","ذلك"],["لاكن","لكن"],["اولايك","اوليك"],["الاه","اله"]];
+const nrm2=w=>{let n=nrm(w);for(const [x,y] of VAR) if(n.includes(x)) n=n.replace(x,y);return n;};
+const skel=w=>w.replace(/ء/g,"");
+const toWords=t=>t.split(/\s+/).map(w=>{const n=nrm2(w);return {raw:w,n,k:skel(n)};}).filter(w=>w.n);
+/* حروف متقاربة الصوت أو الرسم: الخلط بينها خطأ نطق/إملاء لا خطأ حفظ */
+const CONF=new Set(["ضظ","ذز","ثس","صس","حه","قك","دذ","طت","ته","زظ","ذظ","ثت","سز","ضد"]);
+const conf=(x,y)=>CONF.has(x+y)||CONF.has(y+x);
+const SIMC=new Map();
+function simW(a,b){ // a: المتوقع، b: المقروء
+  if(a.n===b.n||a.k===b.k) return "ok";
+  const key=a.n+"|"+b.n; if(SIMC.has(key)) return SIMC.get(key);
+  let r=null; const x=a.n,y=b.n;
+  if(x.length===y.length){ let d=[]; for(let i=0;i<x.length;i++) if(x[i]!==y[i]) d.push(i);
+    if(d.length===1&&d[0]>0&&conf(x[d[0]],y[d[0]])) r="near"; }
+  else if(Math.abs(x.length-y.length)===1){ const [L,Sh]=x.length>y.length?[x,y]:[y,x];
+    if(L.length>=5) for(let i=1;i<L.length;i++){ if(L.slice(0,i)+L.slice(i+1)===Sh){ const c=L[i]; if(c===L[i-1]||c===L[i+1]||"اوي".includes(c)) r="near"; break; } } }
+  SIMC.set(key,r); return r;
+}
+/* محاذاة شبه شاملة: نهاية المتوقع حرّة (ما لم يُقرأ بعد) */
+function align(E,G,live){
+  const m=E.length,n=G.length,INF=1e9;
+  const C=Array.from({length:m+1},()=>new Float64Array(n+1).fill(INF)), B=Array.from({length:m+1},()=>new Uint8Array(n+1));
+  C[0][0]=0; for(let i=1;i<=m;i++){C[i][0]=i;B[i][0]=1;} for(let j=1;j<=n;j++){C[0][j]=j*0.9;B[0][j]=2;}
   for(let i=1;i<=m;i++)for(let j=1;j<=n;j++){
-    const s=simW(exp[i-1].n,got[j-1].n), sub=C[i-1][j-1]+(s==="ok"?0:s==="near"?0.4:1.1);
-    const del=C[i-1][j]+1, ins=C[i][j-1]+1;
-    if(sub<=del&&sub<=ins){C[i][j]=sub;B[i][j]=3;} else if(del<=ins){C[i][j]=del;B[i][j]=1;} else {C[i][j]=ins;B[i][j]=2;}
+    let best=INF,bb=0; const s=simW(E[i-1],G[j-1]);
+    let v=C[i-1][j-1]+(s==="ok"?0:s==="near"?0.3:1.2); if(v<best){best=v;bb=3;}
+    v=C[i-1][j]+1; if(v<best){best=v;bb=1;}
+    v=C[i][j-1]+0.9; if(v<best){best=v;bb=2;}
+    if(i>1&&E[i-2].n+E[i-1].n===G[j-1].n){v=C[i-2][j-1]+0.05;if(v<best){best=v;bb=4;}}
+    if(j>1&&G[j-2].n+G[j-1].n===E[i-1].n){v=C[i-1][j-2]+0.05;if(v<best){best=v;bb=5;}}
+    C[i][j]=best;B[i][j]=bb;
   }
-  const ops=[];let i=m,j=n;
-  while(i>0||j>0){const b=B[i][j];
-    if(b===3){const s=simW(exp[i-1].n,got[j-1].n);ops.push({e:i-1,g:j-1,st:s||"bad"});i--;j--;}
-    else if(b===1){ops.push({e:i-1,st:"miss"});i--;} else {ops.push({g:j-1,st:"extra"});j--;}}
-  return ops.reverse();
+  let iEnd=0,bc=INF; for(let i=0;i<=m;i++){ const c=C[i][n]-i*0.001; if(c<=bc){bc=c;iEnd=i;} }
+  const st=new Array(m).fill("pend"), said=new Array(m).fill(null), extras=[];
+  let i=iEnd,j=n,lastK=-1;
+  while(i>0||j>0){ const b=B[i][j];
+    if(b===3){const s=simW(E[i-1],G[j-1]);st[i-1]=s||"bad";said[i-1]=G[j-1].raw;if(j===n)lastK=i-1;i--;j--;}
+    else if(b===1){st[i-1]="miss";i--;}
+    else if(b===2){extras.push({after:i-1,raw:G[j-1].raw});j--;}
+    else if(b===4){st[i-1]=st[i-2]="ok";i-=2;j--;}
+    else if(b===5){st[i-1]="ok";i--;j-=2;}
+    else break; }
+  // الكلمة الأخيرة ما زالت تُكتب/تُنطق: لا نحكم عليها بعد
+  if(live&&lastK>=0&&st[lastK]!=="ok"&&E[lastK].n.startsWith(G[n-1].n)) st[lastK]="pend";
+  return {st,said,extras,end:iEnd};
 }
-let R={s:1,from:1,to:1,cur:1,res:{},hints:new Set(),base:0,done:false};
-let rec=null,listening=false,committed="",session="";
-const $=id=>document.getElementById(id);
-function expWords(){ return toWords(QS2[R.s-1][R.cur-1]); }
-function userText(){ return $("rIn").value; }
-function stripBasmala(ws){ if(R.cur===1&&R.s!==1&&R.s!==9){const b=["بسم","الله","الرحمن","الرحيم"];if(ws.length>=4&&b.every((x,k)=>ws[k].n===x))return ws.slice(4);} return ws; }
-function evaluate(live){
-  const exp=expWords(), got=stripBasmala(toWords(userText()));
-  const ops=align(exp,got);
-  if(live){ let last=-1; ops.forEach((o,k)=>{if(o.st!=="miss")last=k;}); ops.forEach((o,k)=>{if(k>last&&o.st==="miss")o.st="pend";}); }
-  return {exp,got,ops};
-}
-function render(ev,final){
-  const t=$("rTarget"); let h="";
-  ev.ops.forEach(o=>{
-    if(o.e===undefined){h+=`<span class="w extra">${esc(ev.got[o.g].raw)}</span>`;return;}
-    const e=ev.exp[o.e].raw;
-    if(o.st==="pend"){ h+=R.hints.has(o.e)?`<span class="w hint">${esc(e)}</span>`:`<span class="w pend">${esc(e)}</span>`; return; }
-    if(o.st==="ok") h+=`<span class="w ${R.hints.has(o.e)?"hint":"ok"}">${esc(e)}</span>`;
-    else if(o.st==="near") h+=`<span class="w near">${esc(e)}<small>كتبتَ: ${esc(ev.got[o.g].raw)}</small></span>`;
-    else if(o.st==="bad") h+=`<span class="w bad">${esc(e)}<small>قلتَ: ${esc(ev.got[o.g].raw)}</small></span>`;
-    else h+=`<span class="w miss">${esc(e)}</span>`;
-  });
-  t.innerHTML=h+`<span class="anum">﴿${ar(R.cur)}﴾</span>`;
-}
-function stats(ev){ const c={ok:0,near:0,bad:0,miss:0,extra:0,pend:0}; ev.ops.forEach(o=>c[o.st]++); return c; }
-function showPos(){
-  $("rPos").textContent=`سورة ${S[R.s-1][1]} — الآية ${ar(R.cur)} (${ar(R.cur-R.from+1)} من ${ar(R.to-R.from+1)})`;
-  $("rPrev").textContent=R.cur>1?`﴿${ar(R.cur-1)}﴾ ${QS2[R.s-1][R.cur-2]}`:"";
-  const done=Object.values(R.res); const acc=done.length?Math.round(done.reduce((a,x)=>a+x.acc,0)/done.length):null;
-  $("rScoreTop").textContent=acc===null?"":`الدقة حتى الآن: ${ar(acc)}٪`;
-}
-function startAyah(){
-  R.hints=new Set(); R.done=false; $("rIn").value=""; $("rMsg").textContent=""; $("rMsg").className="rmsg";
-  baseReset(); showPos(); render(evaluate(true),false);
-}
-function finish(auto){
-  const ev=evaluate(false); render(ev,true); const c=stats(ev);
-  const total=ev.exp.length, good=c.ok+c.near-[...R.hints].length;
-  const acc=Math.max(0,Math.round(100*good/total));
-  R.res[R.cur]={acc,bad:c.bad,miss:c.miss,near:c.near,extra:c.extra,hints:R.hints.size};
-  saveWeak(R.s,R.cur,c.bad+c.miss+R.hints.size>0);
-  R.done=true; const m=$("rMsg");
-  if(c.bad+c.miss===0&&R.hints.size===0){ m.className="rmsg good"; m.textContent=c.near?`أحسنت! الحفظ صحيح، مع ${ar(c.near)} خطأ إملائي بسيط (مظلَّل بالأصفر).`:"ما شاء الله! الآية صحيحة كاملة."; }
-  else { m.className="rmsg warn"; m.textContent=`راجع هذه الآية: ${ar(c.bad)} كلمة خاطئة، ${ar(c.miss)} ناقصة${c.extra?`، ${ar(c.extra)} زائدة`:""}${R.hints.size?`، ${ar(R.hints.size)} تلميح`:""}.`; }
-  showPos();
-  return c.bad+c.miss===0&&R.hints.size===0;
-}
-function nextAyah(){ if(R.cur<R.to){R.cur++;startAyah();} else summary(); }
-function summary(){
-  stopMic(); $("rPanel").hidden=true; const sm=$("rSummary"); sm.hidden=false;
-  const rows=[]; for(let a=R.from;a<=R.to;a++){const r=R.res[a]; rows.push(`<tr><td class="num"><span class="go" data-go="${R.s}:${a}">${ar(a)}</span></td><td>${r?ar(r.acc)+"٪":"—"}</td><td>${r?ar(r.bad+r.miss):"—"}</td><td>${r?ar(r.near):"—"}</td><td>${r?ar(r.hints):"—"}</td></tr>`);}
-  const vals=Object.values(R.res), avg=vals.length?Math.round(vals.reduce((a,x)=>a+x.acc,0)/vals.length):0;
-  const weak=Object.entries(R.res).filter(([a,r])=>r.bad+r.miss+r.hints>0).map(([a])=>+a);
-  sm.innerHTML=`<h3 style="margin:0">انتهى التسميع — الدقة ${ar(avg)}٪</h3>
-   <div class="tablewrap"><table><thead><tr><th>الآية</th><th>الدقة</th><th>أخطاء/نقص</th><th>إملائي</th><th>تلميحات</th></tr></thead><tbody>${rows.join("")}</tbody></table></div>
-   <div class="row">${weak.length?`<button class="btn pri" id="rRedoWeak">أعد الآيات التي فيها أخطاء (${ar(weak.length)})</button>`:""}<button class="btn" id="rRedoAll">أعد التسميع من البداية</button><button class="btn" id="rNextRange">المقطع التالي</button></div>`;
-  if(weak.length) $("rRedoWeak").onclick=()=>{R.queue=weak;beginRange(R.s,weak[0],weak[weak.length-1],weak);};
-  $("rRedoAll").onclick=()=>beginRange(R.s,R.from,R.to);
-  $("rNextRange").onclick=()=>{const n=S[R.s-1][2]; if(R.to<n){beginRange(R.s,R.to+1,Math.min(n,R.to+10));} else if(R.s<114){beginRange(R.s+1,1,Math.min(S[R.s][2],10));}};
-  renderWeak();
-}
-function beginRange(s,from,to,only){
+/* بيانات الجلسة */
+let interimNow=false; let R=null, rec=null, listening=false, committed="", sessionTxt="", lastCur=-1, stuckT=null;
+const MAXW=300;
+function beginRange(s,from,to){
   setRange(s,from,to); setPref("qmm-rs",s);
   loadSimple().then(()=>{
     const n=S[s-1][2]; from=Math.max(1,Math.min(n,from)); to=Math.max(from,Math.min(n,to));
-    R={s,from,to,cur:from,res:{},hints:new Set(),only:only||null,done:false};
-    $("rSummary").hidden=true; $("rPanel").hidden=false; startAyah(); $("rIn").focus();
+    const E=[],ayStart={}; let cut=false;
+    for(let a=from;a<=to;a++){ const ws=toWords(QS2[s-1][a-1]); if(E.length+ws.length>MAXW&&a>from){to=a-1;cut=true;break;} ayStart[a]=E.length; ws.forEach(w=>{w.a=a;E.push(w);}); }
+    rTo.value=to; stopMic();
+    R={s,from,to,E,ayStart,hints:new Set(),done:false,res:null,ev:null};
+    $("rSummary").hidden=true; $("rPanel").hidden=false;
+    $("rIn").hidden=rMode!=="type"; $("rIn").value=""; $("rMic").hidden=rMode!=="voice"; $("rHeard").hidden=rMode!=="voice";
+    committed=""; sessionTxt=""; lastCur=-1;
+    $("rMsg").className="rmsg"; $("rMsg").textContent=cut?`المقطع طويل، فقسّمته: يبدأ التسميع حتى الآية ${ar(to)}، ويمكنك متابعة البقية بعده.`:"";
+    update(); $("rPanel").scrollIntoView({block:"start",behavior:"smooth"});
+    if(rMode==="voice") startMic(); else $("rIn").focus();
   }).catch(()=>{$("rWeak").textContent="تعذّر تحميل نص الآيات، أعد المحاولة.";});
 }
-const origNext=nextAyah;
-nextAyah=function(){ if(R.only){const k=R.only.indexOf(R.cur); if(k<R.only.length-1){R.cur=R.only[k+1];startAyah();} else summary(); } else origNext(); };
+const PRE=[["اعوذ","بالله","من","الشيطان","الرجيم"],["بسم","الله","الرحمن","الرحيم"]];
+function heardWords(){
+  let G=toWords(rMode==="voice"?(committed+" "+sessionTxt):$("rIn").value);
+  let changed=true; while(changed){changed=false; for(const p of PRE){ if(!(R.s===1&&R.from===1&&p.length===4)&&G.length>=p.length&&p.every((x,k)=>skel(G[k].n)===skel(nrm(x)))){G=G.slice(p.length);changed=true;} }}
+  return G;
+}
+function update(final){
+  if(!R) return;
+  const G=heardWords(); const ev=align(R.E,G,!final); R.ev=ev;
+  if(final){ // ما بعد آخر موضع وصل إليه القارئ لا يُحسب عليه
+    let last=-1; ev.st.forEach((x,k)=>{if(x!=="pend")last=k;});
+    const lastA=last>=0?R.E[last].a:null;
+    ev.st.forEach((x,k)=>{ if(x==="pend") ev.st[k]=(R.E[k].a===lastA||k<last)?"miss":"skip"; }); }
+  const cur=ev.st.indexOf("pend"); const curA=cur>=0?R.E[cur].a:null;
+  const exAfter={}; ev.extras.forEach(x=>{(exAfter[x.after]=exAfter[x.after]||[]).unshift(x.raw);});
+  let h=""; let prevA=null;
+  if(exAfter[-1]) h+=exAfter[-1].map(x=>`<span class="w extra">${esc(x)}</span>`).join("");
+  R.E.forEach((w,k)=>{
+    if(w.a!==prevA){ if(prevA!==null) h+=`<span class="anum" data-reveal="${prevA}" title="أظهر الآية">﴿${ar(prevA)}﴾</span></span> `; h+=`<span class="ra${w.a===curA?" curay":""}" id="ra-${w.a}">`; prevA=w.a; }
+    let st=ev.st[k]; const hinted=R.hints.has(k);
+    if(st==="pend"){
+      const cls="w pend"+(k===cur?" cur":"")+(hinted||rLevel==="show"?" faint":"");
+      if(hinted) h+=`<span class="w hint${k===cur?" cur":""}">${esc(w.raw)}</span>`;
+      else if(rLevel==="first") h+=`<span class="${cls}"><b>${esc([...w.raw][0])}</b>${esc([...w.raw].slice(1).join(""))}</span>`;
+      else h+=`<span class="${cls}">${esc(w.raw)}</span>`;
+    } else if(st==="ok") h+=`<span class="w ${hinted?"hint":"ok"}">${esc(w.raw)}</span>`;
+    else if(st==="near") h+=`<span class="w near">${esc(w.raw)}<small>${esc(ev.said[k])}</small></span>`;
+    else if(st==="bad") h+=`<span class="w bad">${esc(w.raw)}<small>${rMode==="voice"?"قلتَ":"كتبتَ"}: ${esc(ev.said[k])}</small></span>`;
+    else if(st==="skip") h+=`<span class="w pend faint">${esc(w.raw)}</span>`;
+    else h+=`<span class="w miss">${esc(w.raw)}</span>`;
+    if(exAfter[k]) h+=exAfter[k].map(x=>`<span class="w extra">${esc(x)}</span>`).join("");
+  });
+  if(prevA!==null) h+=`<span class="anum" data-reveal="${prevA}" title="أظهر الآية">﴿${ar(prevA)}﴾</span></span>`;
+  const view=$("rView"); view.innerHTML=h;
+  const tot=R.E.length, doneN=ev.st.filter(x=>x!=="pend").length;
+  $("rBar").style.width=(100*doneN/tot)+"%";
+  $("rCount").textContent=`${ar(doneN)} من ${ar(tot)} كلمة`;
+  $("rPos").textContent=`سورة ${S[R.s-1][1]} — الآيات ${ar(R.from)}–${ar(R.to)}`+(curA?` · الآن: الآية ${ar(curA)}`:"");
+  if(rMode==="voice"){ const t=(committed+" "+sessionTxt).trim().split(/\s+/).slice(-12).join(" "); $("rHeard").innerHTML=t?`سمعتُ: <b>${esc(t)}</b>`:(listening?"أنا أستمع… ابدأ القراءة":""); }
+  if(cur!==lastCur){ lastCur=cur; const c=view.querySelector(".w.cur"); if(c){ const vr=view.getBoundingClientRect(), cr=c.getBoundingClientRect(); if(cr.top<vr.top+20||cr.bottom>vr.bottom-20) view.scrollTop+=cr.top-vr.top-vr.height/3; }
+    clearTimeout(stuckT); if(cur>=0&&rMode==="voice"&&listening) stuckT=setTimeout(()=>{ if(R&&!R.done&&lastCur===cur){ $("rMsg").className="rmsg"; $("rMsg").textContent="توقفت؟ اضغط «الكلمة التالية» لتلميح."; } },8000);
+    if($("rMsg").textContent.startsWith("توقفت")) $("rMsg").textContent=""; }
+  if(!final&&cur===-1&&tot>0){ const lastSt=ev.st[tot-1];
+    const settled=rMode==="type"?(/\s$/.test($("rIn").value)||lastSt==="ok"):(!interimNow||lastSt==="ok");
+    if(settled) finish(); }
+  return ev;
+}
+function finish(){
+  if(!R||R.done) return; stopMic(); const ev=update(true); R.done=true;
+  const per={};
+  R.E.forEach((w,k)=>{const st=ev.st[k]; if(st==="skip") return; const p=per[w.a]=per[w.a]||{tot:0,ok:0,near:0,bad:0,miss:0,hint:0}; p.tot++;
+    if(R.hints.has(k)) p.hint++; else if(st==="ok") p.ok++; else p[st]++; });
+  R.res=per; let T=0,G=0,errs=0,nears=0;
+  if(!Object.keys(per).length){ $("rMsg").className="rmsg"; $("rMsg").textContent="لم أسمع شيئًا من المقطع بعد. اضغط «من جديد» وابدأ القراءة."; R.done=false; return; }
+  Object.entries(per).forEach(([a,p])=>{T+=p.tot;G+=p.ok+p.near;const e=p.bad+p.miss+p.hint;errs+=p.bad+p.miss;nears+=p.near;saveWeak(R.s,+a,e>0);});
+  const acc=Math.round(100*G/T);
+  const reached=Object.keys(per).map(Number), notReached=R.to-Math.max(...reached);
+  const tail=notReached>0?` (توقفتَ عند الآية ${ar(Math.max(...reached))}، وما بعدها لا يُحسب)`:"";
+  const m=$("rMsg"); if(errs===0&&G===T){m.className="rmsg good";m.textContent=(nears?`أحسنت! الحفظ صحيح، وفيه ${ar(nears)} كلمة قريبة بالأصفر تأكّد من نطقها.`:"ما شاء الله! المقطع صحيح كاملًا.")+tail;} else {m.className="rmsg warn";m.textContent=`الدقة ${ar(acc)}٪ — راجع الكلمات الملوّنة بالأحمر.`+tail;}
+  summary(acc);
+}
+function summary(acc){
+  const rows=Object.entries(R.res).map(([a,p])=>{const e=p.bad+p.miss+p.hint; const ac=Math.round(100*(p.ok+p.near)/p.tot);
+    return `<tr class="${e?"bad":""}"><td class="num">${ar(a)}</td><td>${ar(ac)}٪</td><td>${ar(p.bad)}</td><td>${ar(p.miss)}</td><td>${ar(p.hint)}</td><td>${e?`<button class="btn" data-redo="${a}">سمِّعها وحدها</button>`:"✓"}</td></tr>`;}).join("");
+  const weak=Object.entries(R.res).filter(([a,p])=>p.bad+p.miss+p.hint>0).map(([a])=>+a);
+  const sm=$("rSummary"); sm.hidden=false;
+  sm.innerHTML=`<h3 style="margin:0">النتيجة: ${ar(acc)}٪</h3>
+   <div class="tablewrap"><table><thead><tr><th>الآية</th><th>الدقة</th><th>خطأ</th><th>ناقصة</th><th>تلميح</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
+   <div class="row">${weak.length?`<button class="btn pri" id="rRedoWeak">أعد من أول آية فيها خطأ (${ar(weak[0])}–${ar(weak[weak.length-1])})</button>`:""}<button class="btn" id="rRedoAll">أعد المقطع</button><button class="btn pri" id="rNextRange">المقطع التالي</button></div>`;
+  sm.querySelectorAll("[data-redo]").forEach(b=>b.onclick=()=>beginRange(R.s,+b.dataset.redo,+b.dataset.redo));
+  if(weak.length) $("rRedoWeak").onclick=()=>beginRange(R.s,weak[0],weak[weak.length-1]);
+  $("rRedoAll").onclick=()=>beginRange(R.s,R.from,R.to);
+  $("rNextRange").onclick=()=>{const n=S[R.s-1][2]; if(R.to<n) beginRange(R.s,R.to+1,Math.min(n,R.to+10)); else if(R.s<114) beginRange(R.s+1,1,Math.min(S[R.s][2],10));};
+  renderWeak();
+}
 $("rStart").onclick=()=>beginRange(+rSel.value,+rFrom.value||1,+rTo.value||1);
-$("rCheck").onclick=()=>finish(false);
-$("rNext").onclick=()=>{ if(!R.done) finish(false); nextAyah(); };
-$("rRetry").onclick=()=>startAyah();
-$("rShow").onclick=()=>{ const ev=evaluate(false); ev.exp.forEach((_,k)=>R.hints.add(k)); $("rIn").value=QS2[R.s-1][R.cur-1]; finish(false); };
-$("rHint").onclick=()=>{ const ev=evaluate(true); const o=ev.ops.find(o=>o.st==="pend"||o.st==="miss"); if(o){R.hints.add(o.e); render(ev,false);} };
-$("rIn").addEventListener("input",()=>{ if(!R.done) render(evaluate(true),false); });
+$("rFinish").onclick=()=>finish();
+$("rAgain").onclick=()=>R&&beginRange(R.s,R.from,R.to);
+$("rHint").onclick=()=>{ if(!R||R.done) return; const k=R.ev.st.indexOf("pend"); if(k>=0){R.hints.add(k);update();} };
+$("rView").addEventListener("click",e=>{ const n=e.target.closest("[data-reveal]"); if(!n||!R||R.done) return; const a=+n.dataset.reveal; R.E.forEach((w,k)=>{if(w.a===a&&R.ev.st[k]==="pend")R.hints.add(k);}); update(); });
+let typeT=null;
+$("rIn").addEventListener("input",()=>{ clearTimeout(typeT); typeT=setTimeout(()=>{ if(R&&!R.done) update(); },120); });
 $("toRecite").onclick=()=>{ show("recite"); setRange(curS,1); };
+
 /* الترتيل بالصوت */
 const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-function baseReset(){ committed=""; session=""; if(listening&&rec){ try{rec.abort();}catch(e){} } }
-function stopMic(){ listening=false; if(rec){try{rec.stop();}catch(e){}} $("rMic").classList.remove("rec"); $("rMic").textContent="رتّل بالصوت"; }
+function stopMic(){ listening=false; clearTimeout(stuckT); if(rec){ try{rec.onend=null;rec.stop();}catch(e){} rec=null; } committed=(committed+" "+sessionTxt).trim(); sessionTxt="";
+  const b=$("rMic"); b.classList.remove("rec"); b.textContent=R&&!R.done?"استئناف":"ابدأ الاستماع"; }
+function pickAlt(res){ // يختار من بين بدائل التعرّف أقربها إلى نص المقطع
+  if(!R) return res[0].transcript; let best=res[0].transcript,bs=-1;
+  const set=new Set(R.E.map(w=>w.k));
+  for(let k=0;k<res.length;k++){ const ws=toWords(res[k].transcript); const sc=ws.filter(w=>set.has(w.k)).length-0.01*k; if(sc>bs){bs=sc;best=res[k].transcript;} }
+  return best; }
 function startMic(){
-  if(!SR){ $("rMsg").className="rmsg warn"; $("rMsg").textContent="التعرّف على الصوت غير متاح في هذا المتصفح. استعمل Google Chrome، أو اكتب الآية بلوحة المفاتيح."; return; }
-  rec=new SR(); rec.lang="ar-SA"; rec.continuous=true; rec.interimResults=true;
-  rec.onresult=e=>{ let t=""; for(let k=0;k<e.results.length;k++) t+=e.results[k][0].transcript+" "; session=t;
-    $("rIn").value=(committed+" "+session).trim(); if(R.done) return;
-    const ev=evaluate(true); render(ev,false); const c=stats(ev);
-    const last=e.results[e.results.length-1];
-    if(c.pend===0&&last.isFinal){ const clean=finish(true); if(clean) setTimeout(()=>{ if(R.done) nextAyah(); },900); else stopMic(); } };
-  rec.onerror=e=>{ if(e.error==="not-allowed"||e.error==="service-not-allowed"){ stopMic(); $("rMsg").className="rmsg warn"; $("rMsg").textContent="لم يُسمح باستعمال الميكروفون هنا. اسمح بالوصول إلى الميكروفون من إعدادات المتصفح، أو اكتب الآية."; } };
-  rec.onend=()=>{ committed=(committed+" "+session).trim(); session=""; if(listening){ try{rec.start();}catch(e){} } };
+  const m=$("rMsg");
+  if(!SR){ m.className="rmsg warn"; m.textContent="التعرّف على الصوت غير متاح في هذا المتصفح. استعمل Google Chrome، أو اختر «بالكتابة»."; $("rMic").hidden=true; return; }
+  rec=new SR(); rec.lang="ar-SA"; rec.continuous=true; rec.interimResults=true; rec.maxAlternatives=5;
+  rec.onresult=e=>{ const fin=[]; let interim="";
+    for(let k=0;k<e.results.length;k++){ const t=pickAlt(e.results[k]).trim(); if(!t) continue;
+      if(e.results[k].isFinal){ const last=fin[fin.length-1]; if(last&&t.startsWith(last)) fin[fin.length-1]=t; else if(!(last&&last.endsWith(t))) fin.push(t); }
+      else interim=t; }
+    interimNow=!!interim; sessionTxt=(fin.join(" ")+" "+interim).trim(); if(R&&!R.done) update(); };
+  rec.onerror=e=>{ if(e.error==="not-allowed"||e.error==="service-not-allowed"){ stopMic(); m.className="rmsg warn"; m.textContent="لم يُسمح باستعمال الميكروفون. اسمح به من إعدادات المتصفح، أو اختر «بالكتابة»."; }
+    else if(e.error==="network"){ m.className="rmsg warn"; m.textContent="التعرّف على الصوت يحتاج إلى اتصال بالإنترنت."; } };
+  rec.onend=()=>{ committed=(committed+" "+sessionTxt).trim(); sessionTxt=""; if(listening){ try{rec.start();}catch(e){} } };
   listening=true; try{rec.start();}catch(e){}
-  $("rMic").classList.add("rec"); $("rMic").textContent="إيقاف الترتيل";
+  const b=$("rMic"); b.classList.add("rec"); b.textContent="إيقاف مؤقت"; update();
 }
-$("rMic").onclick=()=>listening?stopMic():startMic();
+$("rMic").onclick=()=>{ if(!R||R.done) return; listening?stopMic():startMic(); };
 /* آيات تحتاج مراجعة */
 function saveWeak(s,a,isWeak){ const w=pref("qmm-weak",{}); const k=s+":"+a; if(isWeak) w[k]=(w[k]||0)+1; else delete w[k]; setPref("qmm-weak",w); }
 function renderWeak(){ const w=pref("qmm-weak",{}); const ks=Object.keys(w);
-  $("rWeak").innerHTML=ks.length?`<b>آيات تحتاج مراجعة:</b> `+ks.slice(0,30).map(k=>{const [s,a]=k.split(":");return `<span class="go chip" data-go="${k}">${esc(S[s-1][1])} ${ar(a)}</span>`;}).join(" "):""; }
+  $("rWeak").innerHTML=ks.length?`<b>آيات تحتاج مراجعة:</b> `+ks.slice(0,30).map(k=>{const [s,a]=k.split(":");return `<button class="chip btn" data-rw="${k}">${esc(S[s-1][1])} ${ar(a)}</button>`;}).join(""):"";
+  $("rWeak").querySelectorAll("[data-rw]").forEach(b=>b.onclick=()=>{const [s,a]=b.dataset.rw.split(":").map(Number);beginRange(s,a,a);}); }
 renderWeak();
 
 /* ---------- التبويبات ---------- */
@@ -1073,5 +1173,6 @@ tabs.forEach(b=>b.onclick=()=>{ if(b.dataset.tab==="recite") loadSimple().catch(
 try{ const t=localStorage.getItem("qmm-tab"); if(t==="mushaf") openSurah(pref("qmm-surah",1)); else if(t) show(t); }catch(e){}
 </script>
 
+<script>if("serviceWorker" in navigator)addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));</script>
 </body>
 </html>
