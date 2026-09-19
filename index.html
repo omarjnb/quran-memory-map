@@ -1,0 +1,1077 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="خريطة لحفظ القرآن الكريم: الأجزاء والقصص، ومعاني الكلمات الغريبة، والمتشابهات، ومصحف ملوّن بأحكام التجويد، وتسميع بالصوت أو الكتابة.">
+<meta name="theme-color" content="#1D6B58">
+<style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
+<title>خريطة حفظ القرآن</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Amiri+Quran&family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#F2F5F3; --surface:#FFFFFF; --sunk:#E6ECE8; --ink:#14231E; --muted:#5B6B65; --line:#D3DDD8;
+  --accent:#1D6B58; --accent-soft:#D6EAE3; --gold:#9A6F17; --gold-soft:#F4E9CF;
+  --mecca:#1D6B58; --medina:#8A5A12; --done:#2E7D4F;
+  --display:"Amiri", "Traditional Arabic", "Noto Naskh Arabic", serif;
+  --body:"IBM Plex Sans Arabic", "Segoe UI", Tahoma, system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E1613; --surface:#15201C; --sunk:#1B2823; --ink:#E4ECE8; --muted:#94A6A0; --line:#2A3833;
+    --accent:#62C4A8; --accent-soft:#1D3730; --gold:#D8B460; --gold-soft:#3A3120;
+    --mecca:#62C4A8; --medina:#D8A45A; --done:#6BCB8E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E1613; --surface:#15201C; --sunk:#1B2823; --ink:#E4ECE8; --muted:#94A6A0; --line:#2A3833;
+  --accent:#62C4A8; --accent-soft:#1D3730; --gold:#D8B460; --gold-soft:#3A3120;
+  --mecca:#62C4A8; --medina:#D8A45A; --done:#6BCB8E;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.75;padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:1080px;margin:0 auto}
+header.top{padding-block:36px 20px;display:grid;gap:8px}
+.bism{font-family:var(--display);font-size:28px;color:var(--gold);line-height:1.5}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(36px,6vw,56px);line-height:1.2;margin:0;text-wrap:balance}
+.lede{max-width:64ch;color:var(--muted);margin:0}
+.progress{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:8px}
+.bar{flex:1 1 220px;height:10px;background:var(--sunk);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--done);transition:width .3s}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);display:flex;gap:4px;flex-wrap:wrap;padding-block:10px;border-bottom:1px solid var(--line);margin-bottom:24px}
+nav.tabs button{font:700 15px var(--body);color:var(--muted);background:none;border:0;padding:8px 14px;border-radius:8px;cursor:pointer}
+nav.tabs button[aria-selected="true"]{color:var(--accent);background:var(--accent-soft)}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+h2{font-family:var(--display);font-weight:700;font-size:30px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 18px;max-width:70ch}
+.map{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:36px}
+.cell{all:unset;cursor:pointer;display:grid;gap:2px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+.cell:hover{border-color:var(--accent)}
+.cell .n{font-size:12.5px;color:var(--muted);font-weight:500}
+.cell .l{font-weight:700;font-size:15px;line-height:1.45}
+.cell.done{background:var(--accent-soft);border-color:var(--done)}
+.cell.done .n::after{content:" ✓ تمّ حفظه";color:var(--done)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:-8px 0 14px}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-left:5px;vertical-align:middle}
+.juz{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px;margin-bottom:14px;display:grid;gap:12px;scroll-margin-top:70px}
+.juz-head{display:flex;gap:14px;align-items:baseline;flex-wrap:wrap;justify-content:space-between}
+.juz-title{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.juz-num{font-family:var(--display);font-size:44px;line-height:1;color:var(--accent)}
+.juz-name{font-family:var(--display);font-size:26px;font-weight:700}
+.meta{font-size:13.5px;color:var(--muted)}
+.hook{background:var(--gold-soft);border-radius:8px;padding:10px 14px;font-size:15.5px}
+.hook b{color:var(--gold);font-size:13px;margin-left:8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:13.5px;padding:2px 10px;border-radius:999px;border:1px solid var(--line);background:var(--bg);white-space:nowrap}
+.chip.mk{border-color:color-mix(in srgb,var(--mecca) 45%,transparent)}
+.chip.md{border-color:color-mix(in srgb,var(--medina) 55%,transparent)}
+ul.stories{margin:0;padding:0;list-style:none;display:grid;gap:6px}
+ul.stories li{display:grid;grid-template-columns:minmax(130px,auto) 1fr;gap:14px;align-items:baseline}
+.ref{font-size:13.5px;font-weight:700;color:var(--accent);white-space:nowrap}
+label.mem{display:flex;gap:8px;align-items:center;font-size:14px;font-weight:700;cursor:pointer;color:var(--muted)}
+label.mem input{width:18px;height:18px;accent-color:var(--done)}
+.tools{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.tools input{flex:1 1 240px;font:15px var(--body);padding:9px 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:680px;font-size:14.5px}
+th,td{text-align:right;padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:700 13px var(--body);color:var(--muted);background:var(--sunk);position:sticky;top:0}
+td.num{color:var(--muted);font-variant-numeric:tabular-nums}
+td.nm{font-family:var(--display);font-size:19px;font-weight:700;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.pcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.pcard h3{margin:0;font-family:var(--display);font-weight:700;font-size:22px}
+.pcard p{margin:0;color:var(--muted);font-size:14.5px}
+.refs{display:flex;flex-wrap:wrap;gap:6px}
+.refs span{font-size:13px;background:var(--accent-soft);color:var(--accent);padding:1px 8px;border-radius:5px}
+.groupttl{font:700 14px var(--body);color:var(--gold);margin:22px 0 10px}
+.method{display:grid;gap:14px;max-width:760px}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.step h3{margin:0 0 4px;font-size:17px}
+.step p,.step ul{margin:0;color:var(--muted)}
+.step ul{padding-right:20px;padding-left:0}
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+.calc div{background:var(--sunk);border-radius:8px;padding:10px 12px}
+.calc b{display:block;font-family:var(--display);font-size:24px;color:var(--ink)}
+.calc span{font-size:13px;color:var(--muted)}
+details.box{border-top:1px dashed var(--line);padding-top:10px}
+details.box summary{cursor:pointer;font-weight:700;color:var(--accent);font-size:15px;list-style:none}
+details.box summary::-webkit-details-marker{display:none}
+details.box summary::before{content:"◂ ";display:inline-block;transition:transform .2s}
+details.box[open] summary::before{transform:rotate(-90deg)}
+details.box summary small{color:var(--muted);font-weight:400;margin-right:6px}
+.words{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:6px 18px;margin-top:10px}
+.words div{display:flex;gap:8px;align-items:baseline;border-bottom:1px solid var(--line);padding-block:4px}
+.words b{font-family:var(--display);font-size:19px;color:var(--ink);white-space:nowrap}
+.words span{color:var(--muted);font-size:14.5px}
+.mut{display:grid;gap:12px;margin-top:10px}
+.mut .it{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:10px 14px;display:grid;gap:4px}
+.mut .it h4{margin:0;font-size:15px}
+.mut .v{display:grid;grid-template-columns:minmax(110px,auto) 1fr;gap:12px;align-items:baseline}
+.mut .v q{font-family:var(--display);font-size:19px;quotes:"﴿" "﴾"}
+.mut .v q::before,.mut .v q::after{color:var(--gold)}
+.mut .tip{font-size:14px;color:var(--gold);font-weight:700}
+mark{background:var(--gold-soft);color:var(--ink);border-bottom:2px solid var(--gold);padding-inline:2px;border-radius:2px}
+.keys{display:grid;gap:14px}
+.keys .step table{min-width:0;font-size:14.5px}
+.keys .step td{padding:6px 8px}
+.keys .step td:first-child{font-family:var(--display);font-size:20px;font-weight:700;color:var(--accent);white-space:nowrap}
+.quizbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;display:grid;gap:14px;max-width:640px;margin-bottom:24px}
+.quizbox h3{margin:0;font-size:18px}
+.quizbox select{font:15px var(--body);padding:6px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.flash{all:unset;cursor:pointer;display:grid;place-items:center;text-align:center;min-height:170px;border-radius:10px;background:var(--accent-soft);padding:20px;gap:6px}
+.flash .w{font-family:var(--display);font-size:40px;font-weight:700;line-height:1.3}
+.flash .m{font-size:18px;color:var(--ink)}
+.flash .h{font-size:13px;color:var(--muted)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.btn{font:700 14px var(--body);padding:8px 16px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer}
+.btn.pri{background:var(--accent);color:var(--surface);border-color:var(--accent)}
+.opts{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.opts .btn.ok{background:var(--accent-soft);border-color:var(--done);color:var(--done)}
+.opts .btn.no{border-color:var(--medina);color:var(--medina)}
+.qtext{font-size:17px;font-weight:700}
+.score{color:var(--muted);font-size:14px}
+@media (max-width:520px){ .mut .v{grid-template-columns:1fr;gap:0} }
+
+/* ---- المصحف ---- */
+:root{
+ --tj0:#E07000;--tj1:#9AA0A6;--tj2:#00897B;--tj3:#9E9E9E;--tj4:#9E9E9E;--tj5:#2E7D32;--tj6:#689F38;--tj7:#8E24AA;--tj8:#C2185B;--tj9:#0288D1;
+ --tj10:#9AA0A6;--tj11:#B8960B;--tj12:#D98A00;--tj13:#9E0B0F;--tj14:#EB5A12;--tj15:#D6181E;--tj16:#283593;--tj17:#9AA0A6;
+ --page:#FFFDF6;--page-edge:#E3D6B0;--qfs:30px;
+ --quran:"Amiri Quran","Amiri","Traditional Arabic",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+ --tj0:#FFA04D;--tj1:#7D868C;--tj2:#3FC9B5;--tj3:#8A8A8A;--tj4:#8A8A8A;--tj5:#66C76B;--tj6:#A5D65C;--tj7:#CE7BE0;--tj8:#F06AA0;--tj9:#4FC3F7;
+ --tj10:#7D868C;--tj11:#E3C45A;--tj12:#F2B544;--tj13:#FF6B6B;--tj14:#FF9A5C;--tj15:#FF7A7A;--tj16:#8C9EFF;--tj17:#7D868C;
+ --page:#171F1B;--page-edge:#3A3424;}}
+:root[data-theme="dark"]{
+ --tj0:#FFA04D;--tj1:#7D868C;--tj2:#3FC9B5;--tj3:#8A8A8A;--tj4:#8A8A8A;--tj5:#66C76B;--tj6:#A5D65C;--tj7:#CE7BE0;--tj8:#F06AA0;--tj9:#4FC3F7;
+ --tj10:#7D868C;--tj11:#E3C45A;--tj12:#F2B544;--tj13:#FF6B6B;--tj14:#FF9A5C;--tj15:#FF7A7A;--tj16:#8C9EFF;--tj17:#7D868C;
+ --page:#171F1B;--page-edge:#3A3424;}
+.go{cursor:pointer}
+.go:hover{text-decoration:underline;text-underline-offset:4px}
+.mbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.mbar select{font:15px var(--body);padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);max-width:100%}
+.mbar .sp{flex:1}
+.btn.on{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.legendtj{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.legendtj label{display:flex;align-items:center;gap:6px;font-size:13px;padding:3px 10px;border:1px solid var(--line);border-radius:999px;background:var(--surface);cursor:pointer}
+.legendtj input{margin:0;accent-color:var(--accent)}
+.legendtj i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.page{background:var(--page);border:1px solid var(--page-edge);border-radius:6px;box-shadow:inset 0 0 0 6px var(--page),inset 0 0 0 7px var(--page-edge);padding:28px clamp(14px,4vw,40px)}
+.shead{text-align:center;display:grid;gap:4px;margin-bottom:10px}
+.shead .frame{font-family:var(--display);font-size:28px;font-weight:700;border:2px solid var(--page-edge);border-radius:6px;padding:4px 12px;background:var(--gold-soft);color:var(--ink)}
+.shead .meta{font-size:13px}
+.basmala{font-family:var(--quran);font-size:calc(var(--qfs)*1.05);text-align:center;margin:6px 0 14px;color:var(--ink)}
+.qbody{font-family:var(--quran);font-size:var(--qfs);line-height:2.3;text-align:justify;text-align-last:center;color:var(--ink);word-spacing:2px}
+.ay{border-radius:6px;transition:background .6s}
+.ay.hl{background:var(--gold-soft)}
+.anum{font-family:var(--display);color:var(--gold);font-size:.8em;margin-inline:4px;white-space:nowrap}
+.juzmark{display:block;text-align:center;font:700 13px var(--body);color:var(--accent);margin:8px 0;line-height:1.6}
+.tj{color:var(--c)}
+.plain .tj{color:inherit}
+.test .ay:not(.shown){color:transparent;text-shadow:0 0 14px color-mix(in srgb,var(--ink) 55%,transparent);cursor:pointer}
+.test .ay:not(.shown) .tj{color:transparent}
+.test .ay:not(.shown) .anum{color:var(--gold);text-shadow:none}
+.mnav{display:flex;justify-content:space-between;gap:8px;margin-top:14px}
+.loading{padding:40px;text-align:center;color:var(--muted)}
+
+/* ---- التسميع ---- */
+.rsetup{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:end;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+.rsetup label{display:grid;gap:4px;font-size:13px;color:var(--muted);font-weight:700}
+.rsetup select,.rsetup input{font:15px var(--body);padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);max-width:100%}
+.rsetup input{width:90px}
+#rPanel{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px}
+.rhead{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.rprev{font-family:var(--display);font-size:19px;color:var(--muted);line-height:1.9}
+.rprev:empty{display:none}
+.rtarget{font-family:var(--display);font-size:26px;line-height:2.1;min-height:60px;background:var(--page);border:1px solid var(--page-edge);border-radius:8px;padding:10px 14px;display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.w{border-radius:4px;padding-inline:3px;position:relative}
+.w.pend{color:transparent;border-bottom:2px dotted var(--line);min-width:2.2em;display:inline-block}
+.w.ok{color:var(--done)}
+.w.near{color:var(--gold);background:var(--gold-soft)}
+.w.bad{color:#C62828;background:color-mix(in srgb,#C62828 12%,transparent)}
+.w.miss{color:#C62828;border:1px dashed #C62828}
+.w.extra{color:var(--muted);text-decoration:line-through}
+.w.hint{color:var(--accent);background:var(--accent-soft)}
+.w small{display:block;font:12px var(--body);color:var(--muted);text-align:center;line-height:1.2;text-decoration:none}
+.rtarget .anum{font-size:20px}
+#rIn{font:20px var(--display);padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:100%;resize:vertical;line-height:1.8}
+.rmsg{font-size:15px;font-weight:700;min-height:1.5em}
+.rmsg.good{color:var(--done)} .rmsg.warn{color:#C62828}
+.rlegend{display:flex;flex-wrap:wrap;gap:8px;font-size:13px}
+.rlegend .w{font:13px var(--body);padding:1px 8px}
+#rMic.rec{background:#C62828;border-color:#C62828}
+.rweak{font-size:14px;color:var(--muted);margin-bottom:12px}
+.rweak b{color:var(--ink)}
+#rSummary{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;display:grid;gap:12px;margin-top:14px}
+#rSummary table{min-width:0}
+.note{font-size:13px;color:var(--muted);margin-top:28px;max-width:70ch}
+@media (max-width:520px){ ul.stories li{grid-template-columns:1fr;gap:0} .juz{padding:16px} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap" dir="rtl" lang="ar">
+  <header class="top">
+    <div class="bism">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</div>
+    <h1>خريطة حفظ القرآن الكريم</h1>
+    <p class="lede">القرآن كاملًا في ثلاثين جزءًا — لكل جزء سوره، وما فيه من قصص وآيات بارزة، وجملة تذكيرية تساعدك على تذكّر ترتيب ما فيه. أرقام الصفحات بحسب مصحف المدينة المنورة (١٥ سطرًا، ٦٠٤ صفحات).</p>
+    <div class="progress" aria-live="polite">
+      <div class="bar"><i id="barFill"></i></div>
+      <span>حفظت <b id="doneCount">٠</b> من ٣٠ جزءًا</span>
+    </div>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="t-map" aria-selected="true" data-tab="map">خريطة الأجزاء</button>
+    <button role="tab" id="t-mushaf" aria-selected="false" data-tab="mushaf">المصحف</button>
+    <button role="tab" id="t-recite" aria-selected="false" data-tab="recite">التسميع والتصحيح</button>
+    <button role="tab" id="t-stories" aria-selected="false" data-tab="stories">فهرس القصص</button>
+    <button role="tab" id="t-keys" aria-selected="false" data-tab="keys">مفاتيح التذكّر</button>
+    <button role="tab" id="t-quiz" aria-selected="false" data-tab="quiz">اختبر نفسك</button>
+    <button role="tab" id="t-surahs" aria-selected="false" data-tab="surahs">السور الـ١١٤</button>
+    <button role="tab" id="t-method" aria-selected="false" data-tab="method">طريقة الحفظ</button>
+  </nav>
+
+  <section id="p-map" role="tabpanel">
+    <h2>الأجزاء الثلاثون في لمحة</h2>
+    <p class="sub">اضغط على أي جزء للانتقال إلى تفاصيله، وضع علامة «تمّ الحفظ» لمتابعة تقدّمك (تُحفظ في هذا المتصفح).</p>
+    <div class="map" id="map"></div>
+    <div class="legend"><span><i class="dot" style="background:var(--mecca)"></i>سورة مكية</span><span><i class="dot" style="background:var(--medina)"></i>سورة مدنية</span></div>
+    <div id="juzList"></div>
+  </section>
+
+  <section id="p-mushaf" role="tabpanel" hidden>
+    <h2>المصحف الملوّن بأحكام التجويد</h2>
+    <p class="sub">رواية حفص عن عاصم، بالرسم العثماني. اضغط على أي مرجع آية في الخريطة لينفتح هنا مباشرة. وفي «وضع التسميع» تُخفى الآيات، فاضغط على الآية لتظهر بعد أن تقرأها من حفظك.</p>
+    <div class="mbar">
+      <button class="btn" id="mPrev" aria-label="السورة السابقة">→ السابقة</button>
+      <select id="mSel" aria-label="اختر السورة"></select>
+      <button class="btn" id="mNext" aria-label="السورة التالية">التالية ←</button>
+      <span class="sp"></span>
+      <button class="btn" id="fMinus" aria-label="تصغير الخط">أ−</button>
+      <button class="btn" id="fPlus" aria-label="تكبير الخط">أ+</button>
+      <button class="btn on" id="tjBtn" aria-pressed="true">تلوين التجويد</button>
+      <button class="btn" id="testBtn" aria-pressed="false">وضع التسميع</button>
+      <button class="btn pri" id="toRecite">سمِّع هذه السورة</button>
+    </div>
+    <div class="legendtj" id="legendTj"></div>
+    <div class="page" id="mPage"><div class="loading">جارٍ تحميل المصحف…</div></div>
+    <div class="mnav"><button class="btn" id="mPrev2">→ السورة السابقة</button><button class="btn" id="mNext2">السورة التالية ←</button></div>
+  </section>
+
+  <section id="p-recite" role="tabpanel" hidden>
+    <h2>التسميع والتصحيح</h2>
+    <p class="sub">اختر السورة والآيات، ثم رتّل من حفظك بالميكروفون أو اكتب الآيات. يقارن التطبيق كلامك بنص الآية كلمةً كلمة، ويبيّن الكلمات الصحيحة والخاطئة والناقصة، والأخطاء الإملائية البسيطة.</p>
+    <div class="rsetup">
+      <label>السورة <select id="rSel"></select></label>
+      <label>من الآية <input type="number" id="rFrom" min="1" value="1"></label>
+      <label>إلى الآية <input type="number" id="rTo" min="1" value="7"></label>
+      <button class="btn pri" id="rStart">ابدأ التسميع</button>
+    </div>
+    <div id="rWeak" class="rweak"></div>
+    <div id="rPanel" hidden>
+      <div class="rhead"><b id="rPos"></b><span class="score" id="rScoreTop"></span></div>
+      <div class="rprev" id="rPrev"></div>
+      <div class="rtarget" id="rTarget" aria-live="polite"></div>
+      <textarea id="rIn" rows="3" dir="rtl" placeholder="اكتب الآية من حفظك هنا… أو اضغط «رتّل بالصوت» وابدأ القراءة"></textarea>
+      <div class="row">
+        <button class="btn pri" id="rMic">رتّل بالصوت</button>
+        <button class="btn pri" id="rCheck">تحقّق</button>
+        <button class="btn" id="rHint">تلميح: الكلمة التالية</button>
+        <button class="btn" id="rShow">أظهر الآية</button>
+        <button class="btn" id="rRetry">أعد الآية</button>
+        <button class="btn" id="rNext">الآية التالية</button>
+      </div>
+      <div class="rmsg" id="rMsg"></div>
+      <div class="rlegend"><span class="w ok">صحيحة</span><span class="w near">خطأ إملائي بسيط</span><span class="w bad">خطأ</span><span class="w miss">ناقصة</span><span class="w extra">زائدة</span><span class="w hint">تلميح</span></div>
+    </div>
+    <div id="rSummary" hidden></div>
+  </section>
+
+  <section id="p-stories" role="tabpanel" hidden>
+    <h2>أين تقع كل قصة؟</h2>
+    <p class="sub">تتكرر كثير من القصص في أكثر من موضع، وفي كل موضع تُعرض من زاوية مختلفة.</p>
+    <div id="storyIndex"></div>
+  </section>
+
+  <section id="p-keys" role="tabpanel" hidden>
+    <h2>مفاتيح تساعد على تذكّر الآيات</h2>
+    <p class="sub">قواعد وأنماط متكررة في القرآن؛ إذا عرفتها صار ربط الآيات ببعضها أسهل.</p>
+    <div class="keys" id="keys"></div>
+  </section>
+
+  <section id="p-quiz" role="tabpanel" hidden>
+    <h2>اختبر نفسك</h2>
+    <p class="sub">راجع معاني الكلمات الغريبة بالبطاقات، واختبر معرفتك بمواضع القصص.</p>
+    <div class="quizbox">
+      <h3>بطاقات الكلمات الغريبة</h3>
+      <div class="row"><label for="fcJuz">الجزء:</label><select id="fcJuz"></select><span class="score" id="fcCount"></span></div>
+      <button class="flash" id="flash" aria-live="polite"><span class="w" id="fcW"></span><span class="m" id="fcM" hidden></span><span class="h" id="fcH">اضغط لإظهار المعنى</span></button>
+      <div class="row"><button class="btn" id="fcPrev">السابقة</button><button class="btn pri" id="fcNext">التالية</button><button class="btn" id="fcShuf">خلط البطاقات</button></div>
+    </div>
+    <div class="quizbox">
+      <h3>في أي جزء تقع هذه القصة؟</h3>
+      <div class="qtext" id="qzQ"></div>
+      <div class="opts" id="qzO"></div>
+      <div class="row"><button class="btn pri" id="qzNext">سؤال آخر</button><span class="score" id="qzS"></span></div>
+    </div>
+  </section>
+
+  <section id="p-surahs" role="tabpanel" hidden>
+    <h2>سور القرآن الـ١١٤</h2>
+    <p class="sub">ابحث باسم السورة أو رقمها أو موضوعها.</p>
+    <div class="tools"><input id="q" type="search" placeholder="مثال: يوسف، الكهف، موسى، ٣٦" aria-label="البحث في السور"></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>الرقم</th><th>السورة</th><th>الآيات</th><th>النوع</th><th>الجزء</th><th>الموضوع الرئيس</th></tr></thead>
+      <tbody id="sBody"></tbody>
+    </table></div>
+  </section>
+
+  <section id="p-method" role="tabpanel" hidden>
+    <h2>خطة حفظ بسيطة</h2>
+    <p class="sub">طريقة مجرّبة تُستعمل في حلقات التحفيظ، عدّل المقادير بحسب طاقتك.</p>
+    <div class="method">
+      <div class="step"><h3>١. ابدأ من الآخر: جزء عمّ ← تبارك ← قد سمع</h3><p>السور القصيرة أسهل، وأنت تقرأ كثيرًا منها في الصلاة، والإنجاز المبكر يقوّي العزيمة. بعدها أكمل رجوعًا، أو ابدأ من البقرة متقدّمًا.</p></div>
+      <div class="step"><h3>٢. ثلاثة مسارات كل يوم</h3><ul>
+        <li><b>الدرس الجديد (السَّبَق)</b> — أسطر جديدة تكرّرها حتى تُتقنها (مثلًا ٢٠ مرة نظرًا ثم ١٠ مرات غيبًا).</li>
+        <li><b>المراجعة القريبة (السَّبْقي)</b> — ما حفظته في الأيام السبعة الأخيرة.</li>
+        <li><b>المراجعة البعيدة (المنزل)</b> — تدوير كل ما حفظته قديمًا حتى لا يتفلّت.</li></ul></div>
+      <div class="step"><h3>٣. التزم مصحفًا واحدًا</h3><p>ذاكرتك البصرية تحفظ موضع الآية في الصفحة. كل جزء = ٢٠ صفحة، وكل صفحة = ١٥ سطرًا، وغالبًا تنتهي الصفحة بنهاية آية.</p></div>
+      <div class="step"><h3>٤. استعن بالخريطة</h3><p>قبل أن تبدأ جزءًا اقرأ جملته التذكيرية وقائمة قصصه هنا؛ فمعرفة تسلسل الأحداث (مثل: موسى والخضر ثم ذو القرنين) تسهّل تذكّر ما بعدها.</p></div>
+      <div class="step"><h3>٥. كم يستغرق الحفظ؟</h3><p>مصحف المدينة ٦٠٤ صفحات.</p>
+        <div class="calc">
+          <div><b>≈ سنة و٨ أشهر</b><span>صفحة واحدة يوميًا</span></div>
+          <div><b>≈ ٣٫٣ سنوات</b><span>نصف صفحة يوميًا</span></div>
+          <div><b>≈ ١٠ أشهر</b><span>صفحتان يوميًا</span></div>
+          <div><b>≈ سنتان و٤ أشهر</b><span>صفحة يوميًا، ٥ أيام في الأسبوع</span></div>
+        </div></div>
+      <div class="step"><h3>٦. اقرأ على غيرك</h3><p>الشيخ أو الرفيق الذي يسمع لك يلتقط الأخطاء الصغيرة (حرفًا أو حركة أو كلمة ساقطة) التي لا تنتبه لها بنفسك.</p></div>
+    </div>
+  </section>
+
+  <p class="note">تصنيف المكي والمدني بحسب مصحف المدينة، وبعض السور (كالرعد والرحمن والإنسان) مختلَف في تصنيفها بين العلماء. يُرجى التحقق من أرقام الآيات في مصحفك.<br>نص المصحف: الرسم العثماني من مشروع Tanzil.net (رواية حفص). بيانات تلوين التجويد: مشروع quran-tajweed لـ Collin Fair (رخصة CC BY 4.0)، وهي مولَّدة آليًّا وقد يقع فيها خطأ نادر، فالمرجع هو المصحف المطبوع والقراءة على شيخ.</p>
+</div>
+
+<script>
+/* [الرقم, الاسم, عدد الآيات, م/د, الموضوع] */
+const S=[
+[1,"الفاتحة",7,"M","الحمد والعبادة وسؤال الهداية — تُقرأ في كل ركعة"],
+[2,"البقرة",286,"D","منهج الأمة: آدم، بنو إسرائيل، البقرة، القبلة، الصيام، الحج، آية الكرسي"],
+[3,"آل عمران",200,"D","آل عمران ومولد مريم وعيسى، غزوة أحد، الثبات"],
+[4,"النساء",176,"D","حقوق النساء واليتامى، المواريث، العدل، المنافقون"],
+[5,"المائدة",120,"D","الوفاء بالعقود، الحلال والحرام، الوضوء، ابنا آدم، مائدة الحواريين"],
+[6,"الأنعام",165,"M","التوحيد؛ إبراهيم والكوكب والقمر والشمس؛ الوصايا العشر"],
+[7,"الأعراف",206,"M","آدم وإبليس، أصحاب الأعراف، نوح وهود وصالح ولوط وشعيب وموسى"],
+[8,"الأنفال",75,"D","غزوة بدر ودروسها"],
+[9,"التوبة",129,"D","البراءة من ناقضي العهد، حنين، تبوك، المنافقون — بلا بسملة"],
+[10,"يونس",109,"M","آيات الله، نوح، غرق فرعون، قوم يونس"],
+[11,"هود",123,"M","قصص نوح وهود وصالح وإبراهيم ولوط وشعيب وموسى — الاستقامة"],
+[12,"يوسف",111,"M","قصة يوسف كاملة — أحسن القصص"],
+[13,"الرعد",43,"D","آيات الكون؛ ألا بذكر الله تطمئن القلوب"],
+[14,"إبراهيم",52,"M","دعاء إبراهيم لمكة؛ الكلمة الطيبة كشجرة طيبة"],
+[15,"الحجر",99,"M","حفظ القرآن؛ إبليس؛ ضيف إبراهيم؛ أصحاب الحِجر"],
+[16,"النحل",128,"M","نِعم الله — النحل والأنعام والمطر؛ العدل والإحسان"],
+[17,"الإسراء",111,"M","الإسراء؛ بر الوالدين؛ الوصايا الأخلاقية"],
+[18,"الكهف",110,"M","أربع فتن: أهل الكهف، صاحب الجنتين، موسى والخضر، ذو القرنين"],
+[19,"مريم",98,"M","زكريا ويحيى، مريم وعيسى، إبراهيم وأبوه، الأنبياء"],
+[20,"طه",135,"M","قصة موسى كاملة — النار والعصا وفرعون والعجل"],
+[21,"الأنبياء",112,"M","إبراهيم والأصنام؛ استجابة دعاء الأنبياء"],
+[22,"الحج",78,"D","زلزلة الساعة؛ إبراهيم يؤذّن في الناس بالحج"],
+[23,"المؤمنون",118,"M","صفات المؤمنين المفلحين؛ أطوار خلق الإنسان"],
+[24,"النور",64,"D","حادثة الإفك، أحكام العفاف، آية النور"],
+[25,"الفرقان",77,"M","الرد على المكذبين؛ صفات عباد الرحمن"],
+[26,"الشعراء",227,"M","سبعة أنبياء تُختم قصة كل منهم بالفاصلة نفسها"],
+[27,"النمل",93,"M","سليمان والنملة والهدهد وملكة سبأ"],
+[28,"القصص",88,"M","موسى من ولادته إلى نبوّته؛ قارون"],
+[29,"العنكبوت",69,"M","الابتلاء سنّة؛ أوهن البيوت بيت العنكبوت"],
+[30,"الروم",60,"M","نبوءة انتصار الروم؛ آيات الأزواج والألسنة والمنام"],
+[31,"لقمان",34,"M","وصايا لقمان لابنه"],
+[32,"السجدة",30,"M","الخلق والبعث، والذين تتجافى جنوبهم عن المضاجع"],
+[33,"الأحزاب",73,"D","غزوة الخندق؛ بيت النبي ﷺ؛ الصلاة على النبي"],
+[34,"سبأ",54,"M","داود وسليمان؛ قوم سبأ وسيل العرم"],
+[35,"فاطر",45,"M","الله الخالق؛ الملائكة أولو أجنحة؛ أصناف ورثة الكتاب"],
+[36,"يس",83,"M","أصحاب القرية ورسلهم؛ الآيات؛ البعث"],
+[37,"الصافات",182,"M","ذبح إسماعيل؛ نوح وموسى وإلياس ولوط ويونس"],
+[38,"ص",88,"M","داود والخصمان؛ سليمان؛ أيوب؛ كِبر إبليس"],
+[39,"الزمر",75,"M","الإخلاص؛ لا تقنطوا من رحمة الله؛ الزُّمَر إلى النار والجنة"],
+[40,"غافر",85,"M","مؤمن آل فرعون؛ ادعوني أستجب لكم"],
+[41,"فصلت",54,"M","الخلق في أيام؛ شهادة الجلود؛ ادفع بالتي هي أحسن"],
+[42,"الشورى",53,"M","دين واحد لجميع الأنبياء؛ وأمرهم شورى بينهم"],
+[43,"الزخرف",89,"M","زينة الدنيا لا قيمة لها؛ إبراهيم وموسى وعيسى"],
+[44,"الدخان",59,"M","الليلة المباركة؛ الدخان؛ غرق فرعون"],
+[45,"الجاثية",37,"M","آيات الخلق؛ كل أمة جاثية يوم القيامة"],
+[46,"الأحقاف",35,"M","بر الوالدين؛ هلاك عاد؛ الجن يستمعون القرآن"],
+[47,"محمد",38,"D","القتال في سبيل الله؛ أنهار الجنة؛ المنافقون"],
+[48,"الفتح",29,"D","صلح الحديبية؛ بيعة الرضوان تحت الشجرة"],
+[49,"الحجرات",18,"D","الآداب: التثبّت، لا سخرية ولا غيبة؛ شعوبًا وقبائل"],
+[50,"ق",45,"M","الموت والبعث؛ أقرب إليه من حبل الوريد"],
+[51,"الذاريات",60,"M","ضيف إبراهيم المكرمون؛ الغاية من الخلق العبادة"],
+[52,"الطور",49,"M","القسم بالطور؛ حقيقة الآخرة"],
+[53,"النجم",62,"M","المعراج — رؤية جبريل عند سدرة المنتهى"],
+[54,"القمر",55,"M","انشقاق القمر؛ ولقد يسّرنا القرآن للذكر"],
+[55,"الرحمن",78,"D","فبأي آلاء ربكما تكذبان (٣١ مرة)"],
+[56,"الواقعة",96,"M","الناس يوم القيامة ثلاثة أصناف"],
+[57,"الحديد",29,"D","الإنفاق في سبيل الله؛ نور المؤمنين؛ إنزال الحديد"],
+[58,"المجادلة",22,"D","سماع الله شكوى خولة؛ آداب المجالس"],
+[59,"الحشر",24,"D","إجلاء بني النضير؛ إيثار الأنصار؛ الأسماء الحسنى"],
+[60,"الممتحنة",13,"D","الولاء والبراء؛ امتحان المهاجرات؛ إبراهيم أسوة"],
+[61,"الصف",14,"D","لِمَ تقولون ما لا تفعلون؛ بشارة عيسى بأحمد"],
+[62,"الجمعة",11,"D","صلاة الجمعة؛ مثل الحمار يحمل أسفارًا"],
+[63,"المنافقون",11,"D","صفات المنافقين؛ لا تُلهكم أموالكم"],
+[64,"التغابن",18,"D","يوم التغابن؛ فتنة المال والأولاد"],
+[65,"الطلاق",12,"D","أحكام الطلاق؛ ومن يتق الله يجعل له مخرجًا"],
+[66,"التحريم",12,"D","التوبة النصوح؛ أمثال أربع نساء"],
+[67,"الملك",30,"M","ملك الله؛ المانعة من عذاب القبر"],
+[68,"القلم",52,"M","خُلُق النبي العظيم؛ أصحاب الجنة"],
+[69,"الحاقة",52,"M","الأمم المهلكة؛ الكتاب باليمين أو بالشمال"],
+[70,"المعارج",44,"M","الإنسان هلوع — إلا المصلين"],
+[71,"نوح",28,"M","دعوة نوح ٩٥٠ عامًا ودعاؤه"],
+[72,"الجن",28,"M","الجن يسمعون القرآن فيؤمنون"],
+[73,"المزمل",20,"M","قيام الليل وترتيل القرآن"],
+[74,"المدثر",56,"M","قم فأنذر؛ سقر وعليها تسعة عشر"],
+[75,"القيامة",40,"M","البعث؛ لا تحرك به لسانك لتعجل به"],
+[76,"الإنسان",31,"D","الأبرار يطعمون المسكين؛ نعيم الجنة"],
+[77,"المرسلات",50,"M","ويل يومئذ للمكذبين (١٠ مرات)"],
+[78,"النبأ",40,"M","النبأ العظيم — يوم الفصل"],
+[79,"النازعات",46,"M","الملائكة تنزع الأرواح؛ موسى وفرعون"],
+[80,"عبس",42,"M","ابن أم مكتوم الأعمى؛ يوم يفر المرء من أخيه"],
+[81,"التكوير",29,"M","تكوير الشمس — مشاهد نهاية العالم"],
+[82,"الانفطار",19,"M","انفطار السماء؛ الكرام الكاتبون"],
+[83,"المطففين",36,"M","التطفيف في الكيل؛ عِلّيّون وسِجّين"],
+[84,"الانشقاق",25,"M","انشقاق السماء؛ الكتاب باليمين أو وراء الظهر"],
+[85,"البروج",22,"M","أصحاب الأخدود"],
+[86,"الطارق",17,"M","لكل نفس حافظ؛ خُلق من ماء دافق"],
+[87,"الأعلى",19,"M","سبّح اسم ربك؛ صحف إبراهيم وموسى"],
+[88,"الغاشية",26,"M","وجوه خاشعة ووجوه ناعمة؛ أفلا ينظرون إلى الإبل"],
+[89,"الفجر",30,"M","عاد وثمود وفرعون؛ يا أيتها النفس المطمئنة"],
+[90,"البلد",20,"M","العقبة: فكّ رقبة وإطعام المسكين"],
+[91,"الشمس",15,"M","قد أفلح من زكّاها؛ ثمود والناقة"],
+[92,"الليل",21,"M","العطاء والبخل"],
+[93,"الضحى",11,"M","تسلية النبي: ما ودّعك ربك وما قلى"],
+[94,"الشرح",8,"M","إن مع العسر يسرًا (مرتين)"],
+[95,"التين",8,"M","الإنسان في أحسن تقويم"],
+[96,"العلق",19,"M","«اقرأ» — أول ما نزل"],
+[97,"القدر",5,"M","ليلة القدر خير من ألف شهر"],
+[98,"البينة",8,"D","البينة؛ خير البرية وشر البرية"],
+[99,"الزلزلة",8,"D","مثقال ذرة من خير أو شر يره"],
+[100,"العاديات",11,"M","الخيل المغيرة؛ جحود الإنسان"],
+[101,"القارعة",11,"M","الناس كالفراش المبثوث؛ الموازين"],
+[102,"التكاثر",8,"M","ألهاكم التكاثر حتى زرتم المقابر"],
+[103,"العصر",3,"M","الإنسان في خسر إلا من جمع أربع صفات"],
+[104,"الهمزة",9,"M","ويل للهمزة اللمزة الجامع للمال"],
+[105,"الفيل",5,"M","أبرهة وجيش الفيل والطير الأبابيل"],
+[106,"قريش",4,"M","رحلة الشتاء والصيف"],
+[107,"الماعون",7,"M","دعّ اليتيم، والسهو عن الصلاة، ومنع الماعون"],
+[108,"الكوثر",3,"M","إعطاء النبي الكوثر — أقصر سورة"],
+[109,"الكافرون",6,"M","لكم دينكم ولي دين"],
+[110,"النصر",3,"D","النصر ودخول الناس في دين الله أفواجًا"],
+[111,"المسد",5,"M","أبو لهب وامرأته"],
+[112,"الإخلاص",4,"M","التوحيد الخالص — تعدل ثلث القرآن"],
+[113,"الفلق",5,"M","الاستعاذة من الشرور الخارجية"],
+[114,"الناس",6,"M","الاستعاذة من الوسواس الخناس"]
+];
+
+/* الجزء: [سورة البداية, آية البداية, اسم الجزء, عنوان الخريطة, الجملة التذكيرية, القصص[[مرجع, نص]]] */
+const J=[
+[1,1,"الم","الفاتحة وآدم","الفاتحة ← أصناف الناس الثلاثة ← آدم ← بنو إسرائيل والبقرة ← إبراهيم يبني الكعبة.",[
+ ["1:1-7","سورة الفاتحة"],["2:1-20","ثلاثة أصناف: المؤمنون والكافرون والمنافقون"],["2:30-39","خلق آدم وامتناع إبليس عن السجود"],["2:40-61","نِعم الله على بني إسرائيل: فلق البحر، المن والسلوى، اثنتا عشرة عينًا"],["2:67-73","قصة البقرة (التي سُمّيت بها السورة)"],["2:102","هاروت وماروت ببابل"],["2:124-141","إبراهيم وإسماعيل يرفعان قواعد البيت ويدعوان"]]],
+[2,142,"سيقول","القبلة والصيام","تحويل القبلة ← الصفا والمروة ← الصيام ← الحج ← أحكام الأسرة ← طالوت يهزم جالوت.",[
+ ["2:142-150","تحويل القبلة من بيت المقدس إلى الكعبة"],["2:158","إن الصفا والمروة من شعائر الله"],["2:183-187","صيام رمضان"],["2:196-203","أحكام الحج والعمرة"],["2:221-242","النكاح والطلاق والعدة"],["2:246-251","طالوت وجالوت؛ داود يقتل جالوت"]]],
+[2,253,"تلك الرسل","الكرسي ومريم","آية الكرسي ← إبراهيم يحاجّ الملك ← الذي أماته الله مئة عام ← آية الدَّين ← مولد مريم.",[
+ ["2:255","آية الكرسي — أعظم آية"],["2:258","إبراهيم يحاجّ الملك (النمرود)"],["2:259","الذي مرّ على قرية فأماته الله مئة عام"],["2:260","إبراهيم والطير الأربعة"],["2:275-281","تحريم الربا"],["2:282","آية الدَّين — أطول آية"],["2:285-286","خواتيم سورة البقرة"],["3:35-37","مولد مريم؛ زكريا يجد عندها رزقًا"],["3:38-41","بشارة زكريا بيحيى"],["3:42-60","بشارة الملائكة لمريم بعيسى؛ معجزاته"]]],
+[3,93,"لن تنالوا","غزوة أحد","أول بيت ← الاعتصام بحبل الله ← تذكير ببدر ← دروس أحد ← النساء واليتامى.",[
+ ["3:96-97","أول بيت وُضع للناس ببكة"],["3:103","واعتصموا بحبل الله جميعًا"],["3:121-175","غزوة أحد ودروسها"],["3:190-200","التفكّر في خلق السماوات والأرض"],["4:1-10","حقوق اليتامى"],["4:11-12","أنصبة المواريث"],["4:22-23","المحرّمات من النساء"]]],
+[4,24,"والمحصنات","العدل","النكاح ← الإصلاح بين الزوجين ← الأمانات والطاعة ← المنافقون ← صلاة الخوف ← التوبة.",[
+ ["4:34-35","القوامة والتحكيم بين الزوجين"],["4:36","الإحسان إلى الوالدين والأقارب والجيران"],["4:58-59","أداء الأمانات؛ طاعة الله والرسول"],["4:92-93","القتل الخطأ والقتل العمد"],["4:101-103","قصر الصلاة؛ صلاة الخوف"],["4:135","كونوا قوّامين بالقسط ولو على أنفسكم"],["4:145","المنافقون في الدرك الأسفل من النار"]]],
+[4,148,"لا يحب الله","ابنا آدم","عيسى لم يُصلب ← «اليوم أكملت لكم دينكم» ← هابيل وقابيل ← بنو إسرائيل يرفضون دخول الأرض المقدسة.",[
+ ["4:157-159","ما قتلوا عيسى وما صلبوه، بل رفعه الله"],["4:163-165","الوحي إلى الأنبياء"],["5:3","اليوم أكملت لكم دينكم"],["5:6","صفة الوضوء"],["5:20-26","قوم موسى يرفضون دخول الأرض المقدسة — التيه أربعين سنة"],["5:27-32","ابنا آدم — أول جريمة قتل، والغراب"],["5:44-50","الحكم بما أنزل الله"]]],
+[5,82,"وإذا سمعوا","المائدة وإبراهيم","النصارى الذين فاضت أعينهم ← تحريم الخمر ← المائدة ← سؤال عيسى ← إبراهيم والكوكب والقمر والشمس.",[
+ ["5:82-83","الذين فاضت أعينهم من الدمع لما عرفوا الحق"],["5:89","كفّارة اليمين"],["5:90-91","تحريم الخمر والميسر"],["5:112-115","الحواريون يطلبون مائدة من السماء"],["5:116-118","سؤال عيسى يوم القيامة"],["6:74-83","إبراهيم يستدل بالكوكب والقمر والشمس"],["6:83-90","ذكر ثمانية عشر نبيًا معًا"]]],
+[6,111,"ولو أننا","الوصايا والأعراف","الوصايا العشر ← آدم وإبليس ← أصحاب الأعراف ← نوح، هود، صالح، لوط، شعيب.",[
+ ["6:151-153","الوصايا العشر للصراط المستقيم"],["7:11-25","آدم وإبليس والشجرة"],["7:46-49","أصحاب الأعراف"],["7:59-64","نوح والطوفان"],["7:65-72","هود وقوم عاد"],["7:73-79","صالح وثمود والناقة"],["7:80-84","لوط وقومه"],["7:85-87","شعيب ومدين (البداية)"]]],
+[7,88,"قال الملأ","موسى وبدر","ختام شعيب ← موسى وسحرة فرعون ← الآيات والعذاب ← العجل ← أصحاب السبت ← بدر.",[
+ ["7:88-93","هلاك قوم شعيب بالرجفة"],["7:103-126","عصا موسى وإيمان السحرة"],["7:130-137","الطوفان والجراد والقُمّل والضفادع والدم"],["7:142-145","موسى يسأل رؤية الله؛ الجبل يندكّ"],["7:148-154","العجل الذهبي"],["7:163-166","القرية التي اعتدت في السبت"],["7:172","ميثاق بني آدم"],["8:5-19","غزوة بدر؛ إمداد الملائكة"]]],
+[8,41,"واعلموا","حنين وتبوك","غنائم بدر ← البراءة ← حنين ← الغار في الهجرة ← تبوك.",[
+ ["8:41-44","الخُمس؛ يوم التقى الجمعان"],["9:1-5","إعلان البراءة (بلا بسملة)"],["9:25-26","غزوة حنين"],["9:36","الأشهر الحُرم الأربعة"],["9:40","النبي وأبو بكر في الغار"],["9:38-92","غزوة تبوك وأعذار المنافقين"],["9:60","مصارف الزكاة الثمانية"]]],
+[9,93,"يعتذرون","الثلاثة الذين خُلّفوا","مسجد الضرار ← الثلاثة الذين خُلّفوا ← يونس: موسى، غرق فرعون، قوم يونس.",[
+ ["9:107-110","مسجد الضرار"],["9:117-118","توبة الثلاثة الذين خُلّفوا"],["9:128-129","خاتمة السورة: رحمة النبي بالمؤمنين"],["10:71-73","نوح يتحدى قومه"],["10:75-89","موسى وفرعون"],["10:90-92","غرق فرعون ونجاة بدنه آية"],["10:98","قوم يونس آمنوا فنجوا"]]],
+[11,6,"وما من دابة","سفينة نوح ويوسف","سفينة نوح وابنه ← هود ← صالح ← ضيف إبراهيم ← لوط ← شعيب ← رؤيا يوسف والجب والسجن.",[
+ ["11:25-49","نوح يصنع الفلك؛ غرق ابنه"],["11:50-60","هود وعاد"],["11:61-68","صالح وثمود"],["11:69-83","ضيف إبراهيم؛ قلب قرى لوط"],["11:84-95","شعيب والوفاء بالكيل"],["12:4-18","رؤيا يوسف؛ إلقاؤه في الجب"],["12:21-35","في بيت العزيز؛ مراودة امرأة العزيز"],["12:36-52","السجن ورؤيا الفتيين ورؤيا الملك"]]],
+[12,53,"وما أبرئ","لقاء يوسف","يوسف على خزائن الأرض ← مجيء إخوته ← بنيامين والصُّواع ← ارتداد بصر يعقوب ← الرعد ← دعاء إبراهيم.",[
+ ["12:54-68","يوسف على خزائن مصر؛ قدوم إخوته"],["12:69-79","صُواع الملك في رحل بنيامين"],["12:84-98","حزن يعقوب؛ القميص يرد بصره"],["12:99-101","اجتماع الأسرة وتحقق الرؤيا"],["13:11","إن الله لا يغير ما بقوم حتى يغيروا ما بأنفسهم"],["13:28","ألا بذكر الله تطمئن القلوب"],["14:24-26","الكلمة الطيبة كشجرة طيبة"],["14:35-41","دعاء إبراهيم لمكة وذريته"]]],
+[15,1,"ربما","النحل","حفظ القرآن ← وعيد إبليس ← ضيف إبراهيم ولوط ← أصحاب الحِجر ← النحل ونِعم الله.",[
+ ["15:9","إنا نحن نزّلنا الذكر وإنا له لحافظون"],["15:26-44","إبليس يأبى ويتوعّد بالإغواء"],["15:51-77","ضيف إبراهيم؛ قوم لوط"],["15:80-84","أصحاب الحِجر (ثمود)"],["16:68-69","النحل وعسلها فيه شفاء"],["16:90","إن الله يأمر بالعدل والإحسان"],["16:120-123","إبراهيم كان أمة"]]],
+[17,1,"سبحان","الإسراء والكهف","الإسراء ← بر الوالدين ← الوصايا ← أهل الكهف ← صاحب الجنتين ← موسى يلقى الخضر.",[
+ ["17:1","الإسراء إلى المسجد الأقصى"],["17:23-24","بر الوالدين — رب ارحمهما"],["17:31-39","الوصايا: لا قتل ولا زنا ولا تطفيف ولا كِبر"],["17:85","الروح من أمر ربي"],["17:101-104","آيات موسى التسع"],["18:9-26","أصحاب الكهف"],["18:32-44","صاحب الجنتين"],["18:60-74","موسى والخضر — السفينة والغلام"]]],
+[18,75,"قال ألم","ذو القرنين وطه","جدار الخضر ← ذو القرنين ويأجوج ومأجوج ← مريم تلد عيسى ← قصة موسى كاملة في طه.",[
+ ["18:75-82","الجدار وتأويل الخضر"],["18:83-98","ذو القرنين يبني السد أمام يأجوج ومأجوج"],["19:2-15","نداء زكريا الخفي؛ مولد يحيى"],["19:16-36","مريم والنخلة؛ عيسى يتكلم في المهد"],["19:41-50","إبراهيم وأبوه"],["20:9-36","موسى عند النار؛ العصا واليد"],["20:65-73","سجود السحرة"],["20:85-98","السامري والعجل"],["20:115-123","آدم ينسى ثم يتوب"]]],
+[21,1,"اقترب","الأنبياء والحج","إبراهيم يكسر الأصنام والنار بردًا ← داود وسليمان ← أيوب ← يونس في الحوت ← الحج.",[
+ ["21:51-70","إبراهيم يحطم الأصنام؛ يا نار كوني بردًا وسلامًا"],["21:78-82","حكم داود وسليمان؛ الريح والجن"],["21:83-84","صبر أيوب"],["21:87-88","يونس في الظلمات: لا إله إلا أنت سبحانك"],["21:89-91","زكريا ومريم"],["22:1-2","زلزلة الساعة"],["22:26-29","إبراهيم يؤذّن في الناس بالحج"],["22:39-40","الإذن بالقتال"]]],
+[23,1,"قد أفلح","المؤمنون والنور","صفات المؤمنين ← أطوار الجنين ← نوح وموسى وعيسى ← الإفك ← آية النور.",[
+ ["23:1-11","صفات المؤمنين المفلحين"],["23:12-14","أطوار خلق الإنسان"],["23:23-30","نوح والفلك"],["24:11-20","حادثة الإفك وبراءة عائشة"],["24:30-31","غض البصر والعفاف"],["24:35","آية النور"],["25:7-20","اعتراضات المكذبين"]]],
+[25,21,"وقال الذين","الشعراء والنمل","عباد الرحمن ← الشعراء: سبعة أنبياء ← النملة والهدهد وملكة سبأ.",[
+ ["25:63-77","صفات عباد الرحمن"],["26:10-68","موسى وفرعون؛ انفلاق البحر"],["26:69-104","إبراهيم"],["26:105-191","نوح وهود وصالح ولوط وشعيب — بفاصلة واحدة"],["27:7-14","موسى يرى النار"],["27:15-19","سليمان والنملة"],["27:20-44","الهدهد وملكة سبأ"],["27:45-53","صالح والرهط التسعة"]]],
+[27,56,"أمّن خلق","نشأة موسى والعنكبوت","لوط ← «أمّن خلق…؟» ← موسى الرضيع في اليم ← مدين والزواج ← قارون ← العنكبوت.",[
+ ["27:56-58","هلاك قوم لوط"],["27:60-64","أإله مع الله؟"],["28:7-13","موسى الرضيع في اليم ورده إلى أمه"],["28:15-21","موسى يقتل رجلًا ويخرج خائفًا"],["28:22-28","موسى في مدين وزواجه"],["28:29-35","النار عند الطور والنبوة"],["28:76-82","قارون يُخسف به"],["29:14-15","نوح — ألف سنة إلا خمسين عامًا"],["29:41","أوهن البيوت بيت العنكبوت"]]],
+[29,46,"اتل ما أوحي","لقمان والخندق","غلبة الروم ← آيات الزواج ← وصايا لقمان ← السجدة ← الخندق.",[
+ ["30:2-5","غُلبت الروم ثم يغلبون"],["30:20-25","الآيات: الأزواج، الألسنة، المنام"],["31:12-19","لقمان يعظ ابنه"],["32:15-16","تتجافى جنوبهم عن المضاجع"],["33:9-27","غزوة الأحزاب وبنو قريظة"],["33:21","لقد كان لكم في رسول الله أسوة حسنة"]]],
+[33,31,"ومن يقنت","سبأ ويس","نساء النبي ← الصلاة على النبي ← الأمانة ← موت سليمان ← سيل العرم ← أصحاب القرية في يس.",[
+ ["33:35","عشر صفات للمؤمنين والمؤمنات"],["33:56","إن الله وملائكته يصلّون على النبي"],["33:72","عرض الأمانة على السماوات والجبال"],["34:10-13","داود والحديد؛ سليمان والجن"],["34:14","موت سليمان متكئًا على منسأته"],["34:15-19","جنتا سبأ وسيل العرم"],["36:13-27","أصحاب القرية والرسل الثلاثة والرجل المؤمن"]]],
+[36,28,"وما لي","ذبح إسماعيل","آيات يس ← ذبح إسماعيل ← يونس ← داود والخصمان ← أيوب ← الزمر.",[
+ ["36:33-44","الآيات: الأرض الميتة، الشمس، القمر، الفلك"],["36:77-83","البعث: كن فيكون"],["37:83-98","إبراهيم يحطم الأصنام"],["37:99-111","رؤيا إبراهيم وذبح ابنه"],["37:139-148","يونس يلتقمه الحوت"],["38:21-26","داود والخصمان"],["38:41-44","أيوب يركض برجله فتنبع عين"],["38:71-85","إبليس يأبى السجود"]]],
+[39,32,"فمن أظلم","مؤمن آل فرعون","لا تقنطوا ← الزمر إلى النار والجنة ← المؤمن الخفي في قصر فرعون ← شهادة الجلود.",[
+ ["39:53","لا تقنطوا من رحمة الله"],["39:71-75","سَوق الزمر إلى النار وإلى الجنة"],["40:7-9","حملة العرش يستغفرون للمؤمنين"],["40:28-45","مؤمن آل فرعون"],["40:60","ادعوني أستجب لكم"],["41:9-12","خلق الأرض والسماء في أيام"],["41:20-22","شهادة السمع والأبصار والجلود"],["41:34","ادفع بالتي هي أحسن"]]],
+[41,47,"إليه يُرد","الشورى والدخان","علم الساعة ← الشورى ← الزخرف ← الليلة المباركة ← الدخان ← الأمم الجاثية.",[
+ ["42:13","شرع لكم ما وصّى به نوحًا وإبراهيم وموسى وعيسى"],["42:38","وأمرهم شورى بينهم"],["43:26-28","إبراهيم يتبرأ من الأصنام"],["43:46-56","موسى وفرعون"],["43:57-65","عيسى ابن مريم"],["44:3-6","إنا أنزلناه في ليلة مباركة"],["44:10-16","الدخان"],["45:28","وترى كل أمة جاثية"]]],
+[46,1,"حم","الفتح والحجرات","بر الوالدين والأربعون ← عاد ← استماع الجن ← الحديبية ← آداب الحجرات ← ق ← ضيف إبراهيم.",[
+ ["46:15","الإحسان إلى الوالدين؛ بلوغ الأربعين"],["46:21-26","عاد والعارض الممطر"],["46:29-32","نفر من الجن يستمعون القرآن"],["47:15","أنهار من ماء ولبن وخمر وعسل"],["48:18","بيعة الرضوان تحت الشجرة"],["49:6-13","التثبّت؛ لا سخرية ولا تجسس ولا غيبة"],["50:16","أقرب إليه من حبل الوريد"],["51:24-30","ضيف إبراهيم المكرمون"]]],
+[51,31,"قال فما خطبكم","الرحمن والواقعة","الغاية من الخلق ← المعراج ← انشقاق القمر ← فاصلة الرحمن ← الأصناف الثلاثة ← الحديد.",[
+ ["51:56","وما خلقت الجن والإنس إلا ليعبدون"],["53:1-18","المعراج — جبريل عند سدرة المنتهى"],["54:1","اقتربت الساعة وانشق القمر"],["54:17","ولقد يسّرنا القرآن للذكر (٤ مرات)"],["55","سورة الرحمن — فبأي آلاء ربكما تكذبان"],["56:7-56","السابقون وأصحاب اليمين وأصحاب الشمال"],["57:25","وأنزلنا الحديد"]]],
+[58,1,"قد سمع","عشر سور مدنية","المجادلة ← بنو النضير ← الأسماء الحسنى ← الجمعة ← المنافقون ← الطلاق ← أربع نساء.",[
+ ["58:1-4","قد سمع الله قول التي تجادلك (خولة)"],["59:2-4","إجلاء بني النضير"],["59:9","الأنصار يؤثرون على أنفسهم"],["59:21-24","لو أنزلنا هذا القرآن على جبل؛ الأسماء الحسنى"],["61:6","بشارة عيسى برسول اسمه أحمد"],["62:9-11","فاسعوا إلى ذكر الله يوم الجمعة"],["65:2-3","ومن يتق الله يجعل له مخرجًا"],["66:10-12","امرأتا نوح ولوط، وامرأة فرعون ومريم"]]],
+[67,1,"تبارك","الملك ونوح","الملك ← أصحاب الجنة ← الحاقة ← دعوة نوح ← الجن ← قيام الليل.",[
+ ["67","سورة الملك — المانعة من عذاب القبر"],["68:4","وإنك لعلى خلق عظيم"],["68:17-33","أصحاب الجنة"],["69:19-29","من أوتي كتابه بيمينه ومن أوتي بشماله"],["71","نوح يدعو قومه ليلًا ونهارًا"],["72:1-2","إنا سمعنا قرآنًا عجبًا"],["73:1-8","قم الليل ورتّل القرآن ترتيلًا"],["74:1-7","يا أيها المدثر قم فأنذر"]]],
+[78,1,"عمّ","قصار السور","النبأ ← عبس ← الفيل ← قريش ← الإخلاص ← الفلق ← الناس.",[
+ ["78","النبأ العظيم — يوم الفصل"],["80:1-10","عبس وتولّى أن جاءه الأعمى"],["85:4-9","أصحاب الأخدود"],["89:27-30","يا أيتها النفس المطمئنة ارجعي إلى ربك"],["91:11-15","ثمود تعقر الناقة"],["96:1-5","«اقرأ» — أول ما نزل"],["97","ليلة القدر"],["105","أصحاب الفيل"],["112-114","الإخلاص والمعوّذتان"]]]
+];
+
+const STORIES=[
+ {g:"الأنبياء",items:[
+  ["آدم","خُلق من طين؛ سجود الملائكة وإباء إبليس؛ الشجرة.",["2:30-39","7:11-25","15:26-44","17:61-65","18:50","20:115-123","38:71-85"]],
+  ["إدريس","كان صدّيقًا نبيًا ورفعه الله مكانًا عليًّا.",["19:56-57","21:85"]],
+  ["نوح","دعوة ٩٥٠ عامًا؛ الفلك؛ الطوفان؛ ابنه.",["7:59-64","10:71-73","11:25-49","23:23-30","26:105-122","37:75-82","54:9-17","71:1-28"]],
+  ["هود","أُرسل إلى عاد؛ أُهلكوا بالريح.",["7:65-72","11:50-60","26:123-140","46:21-26"]],
+  ["صالح","أُرسل إلى ثمود؛ الناقة التي عقروها.",["7:73-79","11:61-68","26:141-159","27:45-53","91:11-15"]],
+  ["إبراهيم","الكوكب والقمر والشمس؛ تحطيم الأصنام؛ النار؛ بناء الكعبة؛ الذبح.",["2:124-141","2:258-260","6:74-83","11:69-76","14:35-41","19:41-50","21:51-73","26:69-104","37:83-113","51:24-37"]],
+  ["لوط","أنذر قومه؛ قُلبت قريتهم.",["7:80-84","11:77-83","15:57-77","26:160-175","27:54-58","29:28-35"]],
+  ["إسماعيل وإسحاق","إسماعيل يشارك في بناء الكعبة ويسلّم للذبح؛ البشارة بإسحاق.",["2:125-133","11:71","19:54-55","37:99-113"]],
+  ["يعقوب ويوسف","الرؤيا، الجب، السجن، التمكين، اللقاء.",["12:1-111"]],
+  ["شعيب","أُرسل إلى مدين؛ الوفاء بالكيل والميزان.",["7:85-93","11:84-95","26:176-191"]],
+  ["أيوب","الصبر على المرض؛ الشفاء بعين الماء.",["21:83-84","38:41-44"]],
+  ["موسى وهارون","أكثر القصص تكرارًا: اليم، مدين، النار، فرعون، البحر، العجل، الخضر.",["2:49-74","7:103-162","10:75-92","18:60-82","20:9-98","26:10-68","28:3-46","40:23-46","79:15-26"]],
+  ["داود","قتل جالوت؛ ألان الله له الحديد؛ الخصمان.",["2:251","21:78-80","34:10-11","38:17-26"]],
+  ["سليمان","الريح والجن والنملة والهدهد وملكة سبأ.",["21:78-82","27:15-44","34:12-14","38:30-40"]],
+  ["إلياس","دعا قومه إلى ترك عبادة بعل.",["37:123-132"]],
+  ["اليسع وذو الكفل","ذُكرا في الصابرين والأخيار.",["6:86","21:85","38:48"]],
+  ["يونس","خرج مغاضبًا؛ الحوت؛ دعاؤه في الظلمات.",["10:98","21:87-88","37:139-148","68:48-50"]],
+  ["زكريا ويحيى","الولد على الكِبر؛ يحيى أوتي الحكم صبيًا.",["3:37-41","19:2-15","21:89-90"]],
+  ["مريم وعيسى","مولد مريم وعبادتها؛ مولد عيسى ومعجزاته ورفعه.",["3:35-60","4:157-159","5:110-118","19:16-36","61:6"]],
+  ["محمد ﷺ","ذُكر اسمه أربع مرات؛ وانظر «أحداث السيرة» أدناه.",["3:144","33:40","47:2","48:29"]]
+ ]},
+ {g:"أقوام وشخصيات أخرى",items:[
+  ["ابنا آدم","أول جريمة قتل؛ الغراب يعلّم الدفن.",["5:27-32"]],
+  ["طالوت وجالوت","الفئة القليلة التي غلبت فئة كثيرة.",["2:246-251"]],
+  ["أصحاب الكهف","فتية آمنوا فلبثوا ٣٠٩ سنين.",["18:9-26"]],
+  ["صاحب الجنتين","الغرور بالمال ثم الهلاك.",["18:32-44"]],
+  ["الخضر","السفينة والغلام والجدار.",["18:60-82"]],
+  ["ذو القرنين","الملك العادل؛ السد أمام يأجوج ومأجوج.",["18:83-98"]],
+  ["لقمان","وصاياه الحكيمة لابنه.",["31:12-19"]],
+  ["ملكة سبأ","إحضار عرشها؛ إسلامها مع سليمان.",["27:20-44"]],
+  ["قوم سبأ","كفروا النعمة فأُرسل عليهم سيل العرم.",["34:15-19"]],
+  ["قارون","الغني المتكبر خُسفت به الأرض.",["28:76-82"]],
+  ["مؤمن آل فرعون","كتم إيمانه ودافع عن موسى.",["40:28-45"]],
+  ["أصحاب القرية","ثلاثة رسل ورجل جاء يسعى لنصرتهم.",["36:13-27"]],
+  ["أصحاب السبت","قرية احتالت على الصيد يوم السبت.",["2:65-66","7:163-166"]],
+  ["أصحاب الجنة","أرادوا حرمان المساكين فاحترقت جنتهم.",["68:17-33"]],
+  ["أصحاب الأخدود","مؤمنون أُحرقوا بسبب إيمانهم.",["85:4-9"]],
+  ["أصحاب الفيل","جيش أبرهة أهلكته الطير الأبابيل.",["105:1-5"]]
+ ]},
+ {g:"أحداث السيرة النبوية",items:[
+  ["بدء الوحي","اقرأ باسم ربك الذي خلق.",["96:1-5"]],
+  ["الإسراء والمعراج","من مكة إلى الأقصى؛ سدرة المنتهى.",["17:1","53:1-18"]],
+  ["الهجرة — الغار","لا تحزن إن الله معنا.",["9:40"]],
+  ["غزوة بدر","أول معركة كبرى؛ نزول الملائكة.",["3:123-127","8:5-19","8:41-44"]],
+  ["غزوة أحد","الهزيمة بعد مخالفة الرماة.",["3:121-175"]],
+  ["غزوة الأحزاب","الأحزاب يحاصرون المدينة.",["33:9-27"]],
+  ["حادثة الإفك","تبرئة عائشة رضي الله عنها.",["24:11-20"]],
+  ["صلح الحديبية","بيعة الرضوان؛ الفتح المبين.",["48:1-29"]],
+  ["غزوة حنين","إذ أعجبتكم كثرتكم فلم تغن عنكم شيئًا.",["9:25-26"]],
+  ["غزوة تبوك","ساعة العسرة؛ أعذار المنافقين؛ الثلاثة الذين خُلّفوا.",["9:38-129"]]
+ ]}
+];
+
+/* الكلمات الغريبة لكل جزء: [الكلمة, المعنى] */
+const W=[
+/*1*/[["لا رَيْبَ","لا شكّ"],["يَعْمَهُونَ","يتحيّرون ويتردّدون"],["صَيِّب","مطر غزير"],["أَنْدَادًا","شركاء ونظراء"],["رَغَدًا","واسعًا هنيئًا"],["حِطَّة","احطُط عنّا ذنوبنا"],["خَاسِئِين","مطرودين أذلّاء"],["لا فَارِضٌ وَلا بِكْر","لا مسنّة ولا صغيرة"],["عَوَان","وسط بين السنّين"],["فَادَّارَأْتُمْ","تدافعتم واختلفتم"]],
+/*2*/[["شَطْرَ المَسْجِد","جهته ونحوه"],["الرَّفَث","الجماع ومقدّماته"],["تَخْتَانُونَ","تخونون أنفسكم"],["الأَهِلَّة","جمع هلال"],["أُحْصِرْتُمْ","مُنعتم عن إتمام الحج"],["يُؤْلُونَ","يحلفون على ترك قربان زوجاتهم"],["قُرُوء","حِيَض أو أطهار"],["فَلا جُنَاحَ","لا إثم ولا حرج"],["غُرْفَة","ملء الكفّ من الماء"]],
+/*3*/[["سِنَة","نعاس"],["لا يَئُودُهُ","لا يُثقله ولا يُتعبه"],["الطَّاغُوت","كل ما عُبد من دون الله"],["لَمْ يَتَسَنَّهْ","لم يتغيّر"],["فَصُرْهُنَّ","ضُمَّهنّ وأمِلهنّ إليك"],["صَفْوَان","حجر أملس"],["وَابِل","مطر شديد"],["إِصْرًا","عِبئًا وتكليفًا ثقيلًا"],["مُحَرَّرًا","خالصًا لعبادتك"],["حَصُورًا","يمنع نفسه من الشهوات"],["الأَكْمَه","من وُلد أعمى"],["نَبْتَهِل","نتضرّع بالدعاء باللعنة على الكاذب"]],
+/*4*/[["بَكَّة","مكة"],["شَفَا حُفْرَة","طرفها وحافّتها"],["رِبِّيُّونَ","جموع كثيرة من العلماء والأتباع"],["تَحُسُّونَهُمْ","تقتلونهم قتلًا ذريعًا"],["فَظًّا","سيّئ الخُلُق جافيًا"],["حُوبًا","إثمًا"],["نِحْلَة","عطيّة واجبة"],["كَلالَة","من مات ولا ولد له ولا والد"]],
+/*5*/[["مُحْصِنِين","متعفّفين بالزواج"],["غَيْرَ مُسَافِحِين","غير زناة"],["أَخْدَان","أصدقاء في السرّ"],["نُشُوزَهُنَّ","عصيانهنّ وترفّعهنّ"],["فَتِيلًا","الخيط الرقيق في شقّ النواة"],["نَقِيرًا","النُّقرة في ظهر النواة"],["ثُبَات","جماعات متفرّقة"],["مُرَاغَمًا","مُهاجَرًا ومتحوَّلًا"]],
+/*6*/[["المَوْقُوذَة","المضروبة حتى تموت"],["المُتَرَدِّيَة","الساقطة من علوّ فماتت"],["النَّطِيحَة","التي نطحتها أخرى فماتت"],["مَخْمَصَة","مجاعة"],["يَتِيهُونَ","يضلّون حائرين"],["سَوْءَةَ أَخِيه","جسده الميت"],["السُّحْت","المال الحرام"],["مُهَيْمِنًا","شاهدًا ورقيبًا"],["شِرْعَةً وَمِنْهَاجًا","شريعة وطريقًا واضحًا"]],
+/*7*/[["قِسِّيسِين","علماء النصارى"],["الأَنْصَاب","حجارة كانوا يذبحون عندها"],["الأَزْلام","قِداح يستقسمون بها"],["بَحِيرَة","ناقة تُشقّ أذنها وتُترك للأصنام"],["سَائِبَة","ناقة تُسيَّب للأصنام"],["جَنَّ عَلَيْهِ اللَّيْل","أظلم وستره"],["بَازِغًا","طالعًا"],["أَفَلَ","غاب"]],
+/*8*/[["زُخْرُفَ القَوْل","الباطل المزيَّن"],["يَخْرُصُونَ","يكذبون ويَحزِرون"],["حَمُولَةً وَفَرْشًا","كبارًا للحمل وصغارًا"],["الحَوَايَا","الأمعاء"],["إِمْلاق","فقر"],["سَوْآتُهُمَا","عوراتهما"],["يَخْصِفَانِ","يُلصقان الورق"],["سَمِّ الخِيَاط","ثقب الإبرة"],["الأَعْرَاف","السور العالي بين الجنة والنار"]],
+/*9*/[["الرَّجْفَة","الزلزلة الشديدة"],["جَاثِمِين","هامدين على وجوههم"],["تَلْقَفُ","تبتلع بسرعة"],["يَأْفِكُونَ","يكذبون ويقلبون الحقائق"],["القُمَّل","حشرة صغيرة تؤذي"],["الأَسْبَاط","قبائل بني إسرائيل"],["شُرَّعًا","ظاهرة على وجه الماء"],["بَئِيس","شديد"],["أَمَنَة","أمنًا وطمأنينة"]],
+/*10*/[["يَوْمَ الفُرْقَان","يوم بدر"],["العُدْوَةِ الدُّنْيَا","جانب الوادي القريب"],["فَشَرِّدْ بِهِمْ","نكِّل بهم ليتفرّق من خلفهم"],["إِلًّا وَلا ذِمَّة","قرابة ولا عهدًا"],["وَلِيجَة","بطانة ودخيلة"],["النَّسِيء","تأخير حرمة شهر إلى آخر"],["اثَّاقَلْتُمْ","تباطأتم وتكاسلتم"],["الخَوَالِف","النساء والقاعدون"]],
+/*11*/[["ضِرَارًا","إضرارًا"],["إِرْصَادًا","ترقّبًا وإعدادًا"],["شَفَا جُرُفٍ هَار","طرف حافّة متصدّعة توشك أن تسقط"],["أَوَّاه","كثير التضرّع والدعاء"],["غُمَّة","أمرًا خفيًّا ملتبسًا"],["اطْمِسْ","امحُ وأهلك"],["بِبَدَنِك","بجسدك"],["يَسْتَغْشُونَ ثِيَابَهُمْ","يغطّون رؤوسهم بثيابهم"]],
+/*12*/[["فَارَ التَّنُّور","نبع الماء بقوة من التنّور"],["الجُودِيّ","جبل رست عليه السفينة"],["حَنِيذ","مشويّ على الحجارة"],["عَصِيب","شديد"],["سِجِّيل","طين متحجّر"],["مَنْضُود","متتابع بعضه فوق بعض"],["غَيَابَةِ الجُبّ","قعر البئر"],["السَّيَّارَة","المسافرون"],["بَخْس","ناقص قليل"],["هَيْتَ لَكَ","هلمّ وأقبِل"],["شَغَفَهَا حُبًّا","بلغ حبّه شغاف قلبها"],["أَضْغَاثُ أَحْلام","أخلاط رؤى لا تأويل لها"]],
+/*13*/[["السِّقَايَة / الصُّوَاع","إناء الشرب والكيل"],["كَظِيم","ممتلئ حزنًا كاتم له"],["حَرَضًا","مشرفًا على الهلاك"],["تُفَنِّدُونِ","تنسبونني إلى الخَرَف"],["مُعَقِّبَات","ملائكة يتعاقبون"],["شَدِيدُ المِحَال","شديد القوة والأخذ"],["زَبَدًا رَابِيًا","رغوة عالية"],["طُوبَى","عيش طيب وحسن منقلب"],["أَفْئِدَتُهُمْ هَوَاء","قلوبهم فارغة من الفزع"]],
+/*14*/[["لَوَاقِح","تحمل السحاب وتلقّح الشجر"],["صَلْصَال","طين يابس له صوت"],["حَمَإٍ مَسْنُون","طين أسود متغيّر"],["دِفْء","ما يُستدفأ به"],["تُسِيمُونَ","ترعون أنعامكم"],["سَكَرًا","ما يُسكر (قبل التحريم)"],["أَنْكَاثًا","أنقاضًا محلولة"],["دَخَلًا","خديعة وغشًّا"]],
+/*15*/[["حَصِيرًا","سجنًا"],["أُفّ","كلمة تضجّر"],["مَلُومًا مَحْسُورًا","مذمومًا منقطعًا لا شيء عندك"],["مَرَحًا","تكبّرًا وبطرًا"],["الرَّقِيم","لوح كُتبت فيه أسماؤهم"],["تَزَاوَرُ","تميل"],["تَقْرِضُهُمْ","تعدل عنهم وتتركهم"],["بِالوَصِيد","بفناء الكهف"],["حُقُبًا","زمنًا طويلًا"],["سَرَبًا","مسلكًا في البحر"],["إِمْرًا","منكرًا عظيمًا"]],
+/*16*/[["حَمِئَة","ذات طين أسود"],["زُبَرَ الحَدِيد","قطع الحديد"],["الصَّدَفَيْن","جانبا الجبلين"],["قِطْرًا","نحاسًا مذابًا"],["عِتِيًّا","كِبَرًا ويُبسًا"],["جَنِيًّا","طريًّا"],["فَرِيًّا","عظيمًا منكرًا"],["مَلِيًّا","زمنًا طويلًا"],["آنَسْتُ نَارًا","أبصرتها"],["قَبَس","شعلة من نار"],["أَهُشُّ بِهَا","أضرب بها الشجر ليسقط ورقه لغنمي"],["قَاعًا صَفْصَفًا","أرضًا مستوية ملساء"]],
+/*17*/[["جُذَاذًا","قطعًا مكسّرة"],["نَفَشَتْ","رعت ليلًا بلا راعٍ"],["لَبُوس","دروع"],["ذَا النُّون","صاحب الحوت: يونس"],["حَدَب","مرتفع من الأرض"],["يَنْسِلُونَ","يُسرعون"],["تَفَثَهُمْ","أوساخهم (بالحلق وقصّ الأظافر)"],["القَانِعَ وَالمُعْتَرّ","السائل، والمتعرّض دون سؤال"],["قَصْرٍ مَشِيد","مرتفع مُحكَم"]],
+/*18*/[["اللَّغْو","الباطل وما لا فائدة فيه"],["سُلالَة","خلاصة"],["هَيْهَاتَ","بَعُدَ"],["غُثَاء","ما يحمله السيل من الزبد"],["مِشْكَاة","كوّة غير نافذة"],["دُرِّيّ","مضيء كالدُّرّ"],["بِقِيعَة","بأرض منبسطة"],["الوَدْق","المطر"],["الإِفْك","أشدّ الكذب"]],
+/*19*/[["هَبَاءً مَنْثُورًا","غبارًا متفرّقًا"],["هَوْنًا","بسكينة وتواضع"],["غَرَامًا","لازمًا دائمًا"],["رِيع","مكان مرتفع"],["مَصَانِع","قصور وحصون"],["طَلْعُهَا هَضِيم","ثمرها ليّن نضيج"],["الأَيْكَة","الشجر الملتفّ"],["يُوزَعُونَ","يُحبس أوّلهم على آخرهم لينتظموا"],["الصَّرْح","القصر"],["لُجَّة","ماء عميق"]],
+/*20*/[["فَارِغًا","خاليًا من كل شيء إلا موسى"],["قُصِّيهِ","تتبّعي أثره"],["عَنْ جُنُب","من بعيد"],["فَوَكَزَهُ","ضربه بجُمع كفّه"],["تَذُودَانِ","تمنعان غنمهما"],["جَذْوَة","قطعة من الجمر"],["رِدْءًا","عونًا"],["لَتَنُوءُ بِالعُصْبَة","تُثقل الجماعة القوية"]],
+/*21*/[["بِضْعِ سِنِين","من ثلاث إلى تسع"],["يُحْبَرُونَ","يُسَرّون ويُنعَّمون"],["لَهْوَ الحَدِيث","الكلام الباطل"],["تُصَعِّرْ خَدَّكَ","تُمِل وجهك تكبّرًا"],["اقْصِدْ فِي مَشْيِكَ","توسّط"],["الحَنَاجِر","الحلوق"],["صَيَاصِيهِمْ","حصونهم"],["تَتَجَافَى","تتباعد"]],
+/*22*/[["تَبَرُّج","إظهار الزينة"],["وَطَرًا","حاجة"],["جَلابِيبِهِنَّ","ثيابهنّ الواسعة فوق الثياب"],["مِنْسَأَتَهُ","عصاه"],["العَرِم","السدّ أو السيل الشديد"],["خَمْط","ثمر مُرّ"],["أَثْل","شجر الطرفاء"],["قِطْمِير","القشرة الرقيقة على النواة"]],
+/*23*/[["العُرْجُونِ القَدِيم","عِذق النخلة اليابس المنحني"],["المَشْحُون","المملوء"],["يَزِفُّونَ","يُسرعون"],["تَلَّهُ لِلجَبِين","صرعه على جانب جبهته"],["العَرَاء","أرض خالية لا شجر فيها"],["يَقْطِين","القرع"],["الصَّافِنَاتُ الجِيَاد","الخيل الأصيلة السريعة"],["ضِغْثًا","حزمة من العيدان"]],
+/*24*/[["زُمَرًا","جماعات"],["مَقَالِيد","مفاتيح وخزائن"],["كَاظِمِين","ممتلئين غمًّا"],["تَبَاب","خسران وهلاك"],["نَحِسَات","مشؤومات"],["صَرْصَرًا","ريحًا شديدة البرد والصوت"],["يَنْزَغَنَّكَ","يصيبنّك بوسوسة"],["وَلِيٌّ حَمِيم","صديق قريب"]],
+/*25*/[["رَوَاكِد","ثوابت لا تجري"],["يُوبِقْهُنَّ","يُهلكهنّ"],["مُقْرِنِين","مُطيقين"],["رَهْوًا","ساكنًا مفتوحًا"],["المُهْل","المعدن المذاب أو دُرديّ الزيت"],["سُنْدُسٍ وَإِسْتَبْرَق","رقيق الحرير وغليظه"],["جَاثِيَة","باركة على الركب"]],
+/*26*/[["أَثَارَةٍ مِنْ عِلْم","بقيّة منه"],["عَارِضًا","سحابًا"],["أَشْرَاطُهَا","علاماتها"],["آسِن","متغيّر الريح"],["أَوْزَارَهَا","أثقالها (حتى تنتهي الحرب)"],["شَطْأَهُ","فراخه وفروعه"],["فَآزَرَهُ","قوّاه"],["بَاسِقَات","طويلات"],["طَلْعٌ نَضِيد","ثمر متراكب"]],
+/*27*/[["مُسَوَّمَة","مُعلَّمة"],["الرِّيحَ العَقِيم","التي لا خير فيها"],["ذَنُوبًا","نصيبًا من العذاب"],["قَابَ قَوْسَيْن","قدر قوسين"],["ضِيزَى","جائرة"],["مُنْهَمِر","منصبّ بغزارة"],["دُسُر","مسامير"],["مُدَّكِر","متّعظ"],["مُدْهَامَّتَانِ","شديدتا الخضرة"],["نَضَّاخَتَانِ","فوّارتان"],["بَرْزَخ","حاجز"]],
+/*28*/[["تَفَسَّحُوا","توسّعوا"],["خَصَاصَة","حاجة وفقر"],["لِينَة","نخلة"],["أَوْجَفْتُمْ","أسرعتم بالخيل"],["بُنْيَانٌ مَرْصُوص","متلاصق محكَم"],["أَسْفَارًا","كتبًا"],["خُشُبٌ مُسَنَّدَة","أجسام بلا فهم"],["صَغَتْ قُلُوبُكُمَا","مالت"]],
+/*29*/[["فُطُور","شقوق"],["حَسِير","كليل منقطع"],["زَنِيم","دَعِيّ ملصَق في قومه"],["صَارِمِين","قاطعين للثمر"],["حُسُومًا","متتابعة"],["غِسْلِين","صديد أهل النار"],["هَلُوعًا","شديد الجزع"],["نَاشِئَةَ اللَّيْل","قيام الليل"],["قَسْوَرَة","الأسد"],["زَمْهَرِيرًا","بردًا شديدًا"]],
+/*30*/[["مِهَادًا","فراشًا"],["ثَجَّاجًا","منصبًّا بكثرة"],["أَلْفَافًا","ملتفّة الأشجار"],["السَّاهِرَة","وجه الأرض"],["أَبًّا","الكلأ والمرعى"],["الصَّاخَّة","صيحة القيامة"],["كُوِّرَتْ","لُفّت وذهب ضوؤها"],["عَسْعَسَ","أقبل أو أدبر ظلامه"],["غُثَاءً أَحْوَى","يابسًا أسود"],["النَّجْدَيْن","طريقَي الخير والشر"],["سَجَى","سكن وأظلم"],["ضَبْحًا","صوت أنفاس الخيل"],["غَاسِقٍ إِذَا وَقَب","الليل إذا أظلم"],["الصَّمَد","السيّد المقصود في الحوائج"],["مَسَد","ليف مفتول"]]
+];
+
+/* المتشابهات لكل جزء — ما بين *…* هو موضع الاختلاف */
+const M=[
+/*1*/[
+ {t:"الأكل في الجنة",v:[["2:35","وَ*كُلَا مِنْهَا رَغَدًا* حَيْثُ شِئْتُمَا"],["7:19","*فَكُلَا* مِنْ حَيْثُ شِئْتُمَا"]],tip:"البقرة أطول فزادت «منها رغدًا»، والأعراف بالفاء."},
+ {t:"الشفاعة والعدل",v:[["2:48","وَلَا يُقْبَلُ مِنْهَا *شَفَاعَةٌ* وَلَا يُؤْخَذُ مِنْهَا *عَدْلٌ*"],["2:123","وَلَا يُقْبَلُ مِنْهَا *عَدْلٌ* وَلَا تَنفَعُهَا *شَفَاعَةٌ*"]],tip:"الأولى: شفاعة ثم عدل — والثانية بالعكس."},
+ {t:"دخول القرية",v:[["2:58","*وَادْخُلُوا الْبَابَ سُجَّدًا وَقُولُوا حِطَّةٌ* نَّغْفِرْ لَكُمْ *خَطَايَاكُمْ ۚ وَسَنَزِيدُ*"],["7:161","*وَقُولُوا حِطَّةٌ وَادْخُلُوا الْبَابَ سُجَّدًا* نَّغْفِرْ لَكُمْ *خَطِيئَاتِكُمْ ۚ سَنَزِيدُ*"]],tip:"البقرة: الدخول أولًا + «خطاياكم» + «وسنزيد» بالواو."}],
+/*2*/[
+ {t:"حكم المضطر",v:[["2:173","غَيْرَ بَاغٍ وَلَا عَادٍ *فَلَا إِثْمَ عَلَيْهِ ۚ إِنَّ اللَّهَ* غَفُورٌ رَّحِيمٌ"],["6:145","غَيْرَ بَاغٍ وَلَا عَادٍ *فَإِنَّ رَبَّكَ* غَفُورٌ رَّحِيمٌ"],["16:115","غَيْرَ بَاغٍ وَلَا عَادٍ *فَإِنَّ اللَّهَ* غَفُورٌ رَّحِيمٌ"]],tip:"«فلا إثم عليه» في البقرة وحدها، و«ربّك» في الأنعام وحدها."},
+ {t:"أسئلة «يسألونك» بالترتيب",v:[],tip:"في البقرة سبعة أسئلة: الأهلّة (١٨٩) ← ماذا ينفقون (٢١٥) ← الشهر الحرام (٢١٧) ← الخمر والميسر (٢١٩) ← ماذا ينفقون: العفو (٢١٩) ← اليتامى (٢٢٠) ← المحيض (٢٢٢)."}],
+/*3*/[
+ {t:"إلينا / علينا",v:[["2:136","قُولُوا آمَنَّا بِاللَّهِ وَمَا أُنزِلَ *إِلَيْنَا*"],["3:84","قُلْ آمَنَّا بِاللَّهِ وَمَا أُنزِلَ *عَلَيْنَا*"]],tip:"«قولوا» للأمة ← «إلينا»؛ «قل» للنبي ﷺ ← «علينا» (الوحي نزل عليه)."},
+ {t:"يفعل / يخلق",v:[["3:40","قَالَ كَذَٰلِكَ اللَّهُ *يَفْعَلُ* مَا يَشَاءُ (زكريا)"],["3:47","قَالَ كَذَٰلِكِ اللَّهُ *يَخْلُقُ* مَا يَشَاءُ (مريم)"]],tip:"ولد من غير أب خلقٌ عجيب ← «يخلق» لمريم."},
+ {t:"دعاء زكريا",v:[["3:40","أَنَّىٰ يَكُونُ لِي غُلَامٌ *وَقَدْ بَلَغَنِيَ الْكِبَرُ وَامْرَأَتِي عَاقِرٌ*"],["19:8","أَنَّىٰ يَكُونُ لِي غُلَامٌ *وَكَانَتِ امْرَأَتِي عَاقِرًا وَقَدْ بَلَغْتُ مِنَ الْكِبَرِ عِتِيًّا*"]],tip:"آل عمران: الكِبَر أولًا؛ مريم: المرأة أولًا وزيادة «عتيًّا»."}],
+/*4*/[
+ {t:"بشرى الملائكة",v:[["3:126","إِلَّا بُشْرَىٰ *لَكُمْ* وَلِتَطْمَئِنَّ *قُلُوبُكُم بِهِ*"],["8:10","إِلَّا بُشْرَىٰ وَلِتَطْمَئِنَّ *بِهِ قُلُوبُكُمْ*"]],tip:"آل عمران زادت «لكم» وأخّرت «به»."}],
+/*5*/[
+ {t:"خاتمة آيتي الشرك",v:[["4:48","وَمَن يُشْرِكْ بِاللَّهِ *فَقَدِ افْتَرَىٰ إِثْمًا عَظِيمًا*"],["4:116","وَمَن يُشْرِكْ بِاللَّهِ *فَقَدْ ضَلَّ ضَلَالًا بَعِيدًا*"]],tip:"الأولى في سياق أهل الكتاب (افتراء)، والثانية في سياق المشركين (ضلال)."},
+ {t:"قوّامين",v:[["4:135","كُونُوا قَوَّامِينَ *بِالْقِسْطِ شُهَدَاءَ لِلَّهِ*"],["5:8","كُونُوا قَوَّامِينَ *لِلَّهِ شُهَدَاءَ بِالْقِسْطِ*"]],tip:"النساء: القسط أولًا (سورة الحقوق)؛ المائدة: لله أولًا."}],
+/*6*/[
+ {t:"خواتيم آيات الحكم",v:[["5:44","فَأُولَٰئِكَ هُمُ *الْكَافِرُونَ*"],["5:45","فَأُولَٰئِكَ هُمُ *الظَّالِمُونَ*"],["5:47","فَأُولَٰئِكَ هُمُ *الْفَاسِقُونَ*"]],tip:"رتّبها: كافرون ← ظالمون ← فاسقون (ك ظ ف)."},
+ {t:"الصابئون",v:[["2:62","وَالنَّصَارَىٰ *وَالصَّابِئِينَ*"],["5:69","*وَالصَّابِئُونَ* وَالنَّصَارَىٰ"],["22:17","*وَالصَّابِئِينَ* وَالنَّصَارَىٰ وَالْمَجُوسَ"]],tip:"المائدة وحدها بالرفع «الصابئون»، والحج زادت «المجوس»."},
+ {t:"التيمم",v:[["4:43","فَامْسَحُوا بِوُجُوهِكُمْ وَأَيْدِيكُمْ"],["5:6","فَامْسَحُوا بِوُجُوهِكُمْ وَأَيْدِيكُم *مِّنْهُ*"]],tip:"المائدة زادت «منه»."}],
+/*7*/[
+ {t:"الوصايا وخواتيمها",v:[["6:151","لَعَلَّكُمْ *تَعْقِلُونَ*"],["6:152","لَعَلَّكُمْ *تَذَكَّرُونَ*"],["6:153","لَعَلَّكُمْ *تَتَّقُونَ*"]],tip:"عقلٌ ← تذكُّر ← تقوى: تفهم ثم تتذكّر ثم تعمل."},
+ {t:"سيروا في الأرض",v:[["6:11","قُلْ سِيرُوا فِي الْأَرْضِ *ثُمَّ* انظُرُوا كَيْفَ كَانَ عَاقِبَةُ *الْمُكَذِّبِينَ*"],["27:69","قُلْ سِيرُوا فِي الْأَرْضِ *فَ*انظُرُوا كَيْفَ كَانَ عَاقِبَةُ *الْمُجْرِمِينَ*"]],tip:"«ثمّ» في الأنعام وحدها."}],
+/*8*/[
+ {t:"إرسال نوح",v:[["7:59","*لَقَدْ* أَرْسَلْنَا نُوحًا إِلَىٰ قَوْمِهِ *فَقَالَ* يَا قَوْمِ"],["11:25","*وَلَقَدْ* أَرْسَلْنَا نُوحًا إِلَىٰ قَوْمِهِ *إِنِّي لَكُمْ نَذِيرٌ مُّبِينٌ*"],["23:23","*وَلَقَدْ* أَرْسَلْنَا نُوحًا إِلَىٰ قَوْمِهِ *فَقَالَ* يَا قَوْمِ"]],tip:"الأعراف بلا واو. وفي الأعراف «فقال» لنوح وحده، وبقية الأنبياء بعده «قال»."}],
+/*9*/[
+ {t:"عصا موسى",v:[["7:107","فَإِذَا هِيَ *ثُعْبَانٌ مُّبِينٌ*"],["20:20","فَإِذَا هِيَ *حَيَّةٌ تَسْعَىٰ*"],["27:10","تَهْتَزُّ كَأَنَّهَا *جَانٌّ*"]],tip:"أمام فرعون: ثعبان (الأعراف والشعراء)؛ أول مرة في الوادي: حيّة (طه)، وجانّ (النمل والقصص)."},
+ {t:"تهديد فرعون للسحرة",v:[["7:124","*ثُمَّ* لَأُصَلِّبَنَّكُمْ أَجْمَعِينَ"],["20:71","وَلَأُصَلِّبَنَّكُمْ *فِي جُذُوعِ النَّخْلِ*"],["26:49","*وَ*لَأُصَلِّبَنَّكُمْ أَجْمَعِينَ"]],tip:"الأعراف «ثمّ»، الشعراء «و»، طه «في جذوع النخل»."}],
+/*10*/[
+ {t:"لا تعجبك أموالهم",v:[["9:55","*فَلَا* تُعْجِبْكَ أَمْوَالُهُمْ *وَلَا* أَوْلَادُهُمْ ۚ إِنَّمَا يُرِيدُ اللَّهُ *لِ*يُعَذِّبَهُم بِهَا فِي *الْحَيَاةِ* الدُّنْيَا"],["9:85","*وَلَا* تُعْجِبْكَ أَمْوَالُهُمْ وَأَوْلَادُهُمْ ۚ إِنَّمَا يُرِيدُ اللَّهُ *أَن* يُعَذِّبَهُم بِهَا فِي الدُّنْيَا"]],tip:"الأولى أطول: «فلا… ولا… ليعذّبهم… الحياة»."}],
+/*11*/[
+ {t:"التحدّي بالقرآن",v:[["2:23","فَأْتُوا بِسُورَةٍ *مِّن* مِّثْلِهِ"],["10:38","فَأْتُوا بِسُورَةٍ مِّثْلِهِ"],["11:13","فَأْتُوا *بِعَشْرِ سُوَرٍ* مِّثْلِهِ *مُفْتَرَيَاتٍ*"]],tip:"يونس: سورة؛ هود (بعدها): عشر سور؛ البقرة زادت «من»."}],
+/*12*/[
+ {t:"الصيحة والرجفة",v:[["11:67","*وَأَخَذَ* الَّذِينَ ظَلَمُوا الصَّيْحَةُ فَأَصْبَحُوا فِي *دِيَارِهِمْ* جَاثِمِينَ (ثمود)"],["11:94","*وَأَخَذَتِ* الَّذِينَ ظَلَمُوا الصَّيْحَةُ فَأَصْبَحُوا فِي *دِيَارِهِمْ* جَاثِمِينَ (مدين)"],["7:78","فَأَخَذَتْهُمُ *الرَّجْفَةُ* فَأَصْبَحُوا فِي *دَارِهِمْ* جَاثِمِينَ"]],tip:"الصيحة ← ديارهم (الصوت ينتشر)؛ الرجفة ← دارهم. وفي هود: ثمود «أخذ»، ومدين «أخذت»."}],
+/*13*/[
+ {t:"يذبّحون أبناءكم",v:[["2:49","*يُذَبِّحُونَ* أَبْنَاءَكُمْ"],["7:141","*يُقَتِّلُونَ* أَبْنَاءَكُمْ"],["14:6","*وَيُذَبِّحُونَ* أَبْنَاءَكُمْ"]],tip:"البقرة بلا واو، إبراهيم بالواو، الأعراف «يقتّلون»."}],
+/*14*/[
+ {t:"سؤال إبليس",v:[["7:12","قَالَ *مَا مَنَعَكَ أَلَّا تَسْجُدَ إِذْ أَمَرْتُكَ*"],["15:32","قَالَ يَا إِبْلِيسُ *مَا لَكَ أَلَّا تَكُونَ مَعَ السَّاجِدِينَ*"],["38:75","قَالَ يَا إِبْلِيسُ *مَا مَنَعَكَ أَن تَسْجُدَ لِمَا خَلَقْتُ بِيَدَيَّ*"]],tip:"الحجر وحدها «ما لك»؛ ص وحدها «بيديّ»."}],
+/*15*/[
+ {t:"اعتراض موسى على الخضر",v:[["18:71","لَقَدْ جِئْتَ شَيْئًا *إِمْرًا* (السفينة)"],["18:74","لَقَدْ جِئْتَ شَيْئًا *نُّكْرًا* (الغلام)"]],tip:"القتل أشدّ ← «نُكرًا» أشدّ نكارة."},
+ {t:"ردّ الخضر",v:[["18:72","أَلَمْ أَقُلْ إِنَّكَ لَن تَسْتَطِيعَ مَعِيَ صَبْرًا"],["18:75","أَلَمْ أَقُلْ *لَّكَ* إِنَّكَ لَن تَسْتَطِيعَ مَعِيَ صَبْرًا"]],tip:"زاد «لك» في الثانية لأن العتاب اشتدّ."}],
+/*16*/[
+ {t:"تستطع / تسطع",v:[["18:78","مَا لَمْ *تَسْتَطِع* عَّلَيْهِ صَبْرًا"],["18:82","مَا لَمْ *تَسْطِع* عَّلَيْهِ صَبْرًا"]],tip:"قبل الشرح الحِمل ثقيل ← الكلمة أطول؛ بعد الشرح خفّ ← «تسطع» أقصر."},
+ {t:"السلام على يحيى وعيسى",v:[["19:15","*وَسَلَامٌ عَلَيْهِ* يَوْمَ وُلِدَ وَيَوْمَ يَمُوتُ"],["19:33","*وَالسَّلَامُ عَلَيَّ* يَوْمَ وُلِدتُّ وَيَوْمَ أَمُوتُ"]],tip:"يحيى: سلام من الله (نكرة، عليه)؛ عيسى: يتكلم عن نفسه (معرفة، عليّ)."}],
+/*17*/[
+ {t:"نداء أيوب",v:[["21:83","أَنِّي مَسَّنِيَ *الضُّرُّ وَأَنتَ أَرْحَمُ الرَّاحِمِينَ*"],["38:41","أَنِّي مَسَّنِيَ *الشَّيْطَانُ بِنُصْبٍ وَعَذَابٍ*"]],tip:"الأنبياء: الضرّ؛ ص: الشيطان."}],
+/*18*/[
+ {t:"المحافظة على الصلاة",v:[["23:9","وَالَّذِينَ هُمْ عَلَىٰ *صَلَوَاتِهِمْ* يُحَافِظُونَ"],["70:23","الَّذِينَ هُمْ عَلَىٰ *صَلَاتِهِمْ دَائِمُونَ*"],["70:34","وَالَّذِينَ هُمْ عَلَىٰ *صَلَاتِهِمْ* يُحَافِظُونَ"]],tip:"المؤمنون بالجمع «صلواتهم»؛ المعارج بالإفراد."}],
+/*19*/[
+ {t:"فاصلة الشعراء",v:[["26:8","إِنَّ فِي ذَٰلِكَ لَآيَةً ۖ وَمَا كَانَ أَكْثَرُهُم مُّؤْمِنِينَ ۝ وَإِنَّ رَبَّكَ لَهُوَ الْعَزِيزُ الرَّحِيمُ"]],tip:"تتكرر ٨ مرات: بعد المقدمة، ثم بعد قصة كل نبي من السبعة."},
+ {t:"جواب السحرة",v:[["7:125","قَالُوا إِنَّا إِلَىٰ رَبِّنَا مُنقَلِبُونَ"],["26:50","قَالُوا *لَا ضَيْرَ ۖ* إِنَّا إِلَىٰ رَبِّنَا مُنقَلِبُونَ"]],tip:"الشعراء زادت «لا ضير»."}],
+/*20*/[
+ {t:"نار موسى",v:[["20:10","لَّعَلِّي آتِيكُم مِّنْهَا *بِقَبَسٍ أَوْ أَجِدُ عَلَى النَّارِ هُدًى*"],["27:7","*سَآتِيكُم* مِّنْهَا *بِخَبَرٍ أَوْ آتِيكُم بِشِهَابٍ قَبَسٍ* لَّعَلَّكُمْ تَصْطَلُونَ"],["28:29","لَّعَلِّي آتِيكُم مِّنْهَا *بِخَبَرٍ أَوْ جَذْوَةٍ مِّنَ النَّارِ* لَّعَلَّكُمْ تَصْطَلُونَ"]],tip:"طه: قبس + هدى؛ النمل: شهاب قبس؛ القصص: جذوة."},
+ {t:"الرجل الذي جاء يسعى",v:[["28:20","وَجَاءَ *رَجُلٌ مِّنْ أَقْصَى الْمَدِينَةِ* يَسْعَىٰ"],["36:20","وَجَاءَ *مِنْ أَقْصَى الْمَدِينَةِ رَجُلٌ* يَسْعَىٰ"]],tip:"القصص: «رجل» ثم المكان؛ يس: المكان ثم «رجل»."}],
+/*21*/[
+ {t:"الوصية بالوالدين",v:[["29:8","وَوَصَّيْنَا الْإِنسَانَ بِوَالِدَيْهِ *حُسْنًا*"],["31:14","وَوَصَّيْنَا الْإِنسَانَ بِوَالِدَيْهِ *حَمَلَتْهُ أُمُّهُ*"],["46:15","وَوَصَّيْنَا الْإِنسَانَ بِوَالِدَيْهِ *إِحْسَانًا*"]],tip:"بالترتيب: حُسنًا ← حملته ← إحسانًا."}],
+/*22*/[
+ {t:"سنّة الله",v:[["33:62","*وَلَن* تَجِدَ لِسُنَّةِ اللَّهِ تَبْدِيلًا"],["35:43","*فَلَن* تَجِدَ لِسُنَّتِ اللَّهِ تَبْدِيلًا ۖ *وَلَن تَجِدَ لِسُنَّتِ اللَّهِ تَحْوِيلًا*"]],tip:"فاطر: بالفاء، وزادت «تحويلًا»."}],
+/*23*/[
+ {t:"نجزي المحسنين",v:[["37:80","*إِنَّا* كَذَٰلِكَ نَجْزِي الْمُحْسِنِينَ (نوح)"],["37:110","كَذَٰلِكَ نَجْزِي الْمُحْسِنِينَ (إبراهيم)"]],tip:"في الصافات كلها «إنّا كذلك» إلا الموضع الثاني لإبراهيم (١١٠)، لأن «إنّا» سبقت قبله في آية ١٠٥."}],
+/*24*/[
+ {t:"أبواب النار والجنة",v:[["39:71","حَتَّىٰ إِذَا جَاءُوهَا *فُتِحَتْ* أَبْوَابُهَا (النار)"],["39:73","حَتَّىٰ إِذَا جَاءُوهَا *وَفُتِحَتْ* أَبْوَابُهَا (الجنة)"]],tip:"الواو للجنة: أبوابها مفتوحة قبل وصولهم إكرامًا."}],
+/*25*/[
+ {t:"عزم الأمور",v:[["3:186","*فَإِنَّ* ذَٰلِكَ مِنْ عَزْمِ الْأُمُورِ"],["31:17","*إِنَّ* ذَٰلِكَ مِنْ عَزْمِ الْأُمُورِ"],["42:43","إِنَّ ذَٰلِكَ *لَمِنْ* عَزْمِ الْأُمُورِ"]],tip:"الشورى وحدها باللام «لَمِن»، وآل عمران وحدها بالفاء."}],
+/*26*/[
+ {t:"ضيف إبراهيم",v:[["11:69","قَالُوا سَلَامًا ۖ قَالَ سَلَامٌ ۖ *فَمَا لَبِثَ أَن جَاءَ بِعِجْلٍ حَنِيذٍ*"],["15:52","فَقَالُوا سَلَامًا *قَالَ إِنَّا مِنكُمْ وَجِلُونَ*"],["51:25","فَقَالُوا سَلَامًا ۖ قَالَ سَلَامٌ *قَوْمٌ مُّنكَرُونَ*"]],tip:"هود: العجل؛ الحجر: الخوف؛ الذاريات: «قوم منكرون»."}],
+/*27*/[
+ {t:"لو نشاء",v:[["56:65","لَوْ نَشَاءُ *لَ*جَعَلْنَاهُ حُطَامًا (الزرع)"],["56:70","لَوْ نَشَاءُ جَعَلْنَاهُ أُجَاجًا (الماء)"]],tip:"الزرع باللام، والماء بدونها."},
+ {t:"فواصل متكررة",v:[],tip:"القمر: «فكيف كان عذابي ونُذُر» و«ولقد يسّرنا القرآن للذكر فهل من مدّكر» (٤ مرات). الرحمن: «فبأيّ آلاء ربكما تكذّبان» (٣١ مرة)."}],
+/*28*/[
+ {t:"المسبّحات",v:[["57:1","*سَبَّحَ* لِلَّهِ مَا فِي السَّمَاوَاتِ وَالْأَرْضِ"],["59:1","*سَبَّحَ* لِلَّهِ مَا فِي السَّمَاوَاتِ *وَمَا فِي* الْأَرْضِ"],["62:1","*يُسَبِّحُ* لِلَّهِ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ"]],tip:"الحديد والحشر والصف: «سبّح» (ماضٍ)، والجمعة والتغابن: «يسبّح». الحديد وحدها بلا «وما في»."}],
+/*29*/[
+ {t:"وجوه يومئذ",v:[["75:22","وُجُوهٌ يَوْمَئِذٍ *نَّاضِرَةٌ*"],["80:38","وُجُوهٌ يَوْمَئِذٍ *مُّسْفِرَةٌ*"],["88:8","وُجُوهٌ يَوْمَئِذٍ *نَّاعِمَةٌ*"]],tip:"القيامة: ناضرة (تنظر إلى ربها)؛ عبس: مسفرة؛ الغاشية: ناعمة."}],
+/*30*/[
+ {t:"علمت نفس",v:[["81:14","عَلِمَتْ نَفْسٌ *مَّا أَحْضَرَتْ*"],["82:5","عَلِمَتْ نَفْسٌ *مَّا قَدَّمَتْ وَأَخَّرَتْ*"]],tip:"التكوير: أحضرت؛ الانفطار: قدّمت وأخّرت."},
+ {t:"إن مع العسر يسرًا",v:[["94:5-6","فَإِنَّ مَعَ الْعُسْرِ يُسْرًا ۝ إِنَّ مَعَ الْعُسْرِ يُسْرًا"]],tip:"الأولى بالفاء، والثانية بدونها."}]
+];
+
+/* مفاتيح التذكّر العامة */
+const KEYS=[
+ {t:"الحروف المقطّعة (٢٩ سورة)",rows:[["الم","البقرة، آل عمران، العنكبوت، الروم، لقمان، السجدة"],["الر","يونس، هود، يوسف، إبراهيم، الحجر"],["المر","الرعد"],["المص","الأعراف"],["كهيعص","مريم"],["طه","طه"],["طسم","الشعراء، القصص"],["طس","النمل"],["يس","يس"],["ص","ص"],["حم","غافر، فصلت، الزخرف، الدخان، الجاثية، الأحقاف"],["حم عسق","الشورى"],["ق","ق"],["ن","القلم"]]},
+ {t:"سور تبدأ بالبداية نفسها",rows:[["الحمد لله","الفاتحة، الأنعام، الكهف، سبأ، فاطر"],["يا أيها الناس","النساء، الحج"],["يا أيها الذين آمنوا","المائدة، الحجرات، الممتحنة"],["يا أيها النبي","الأحزاب، الطلاق، التحريم"],["تبارك","الفرقان، الملك"],["سبّح / يسبّح","الحديد، الحشر، الصف (سبّح) — الجمعة، التغابن (يسبّح) — الأعلى (سبّح اسم ربك)"],["إذا","الواقعة، المنافقون، التكوير، الانفطار، الانشقاق، الزلزلة، النصر"],["قل","الجن، الكافرون، الإخلاص، الفلق، الناس"]]},
+ {t:"مجموعات السور",rows:[["الزهراوان","البقرة وآل عمران"],["الطواسين","الشعراء، النمل، القصص (طسم، طس، طسم)"],["الحواميم السبع","غافر ← فصلت ← الشورى ← الزخرف ← الدخان ← الجاثية ← الأحقاف (متتالية)"],["المسبّحات","الإسراء، الحديد، الحشر، الصف، الجمعة، التغابن، الأعلى"],["المعوّذتان","الفلق والناس"],["السبع الطوال","البقرة، آل عمران، النساء، المائدة، الأنعام، الأعراف، والسابعة: الأنفال مع التوبة، وقيل: يونس"]]},
+ {t:"فواصل وعبارات متكررة",rows:[["٣١ مرة","«فبأيّ آلاء ربكما تكذّبان» — الرحمن"],["١٠ مرات","«ويل يومئذ للمكذبين» — المرسلات"],["٨ مرات","«إن في ذلك لآية وما كان أكثرهم مؤمنين» — الشعراء"],["٤ مرات","«ولقد يسّرنا القرآن للذكر فهل من مدّكر» — القمر"],["مرتان","«فإن مع العسر يسرًا» — الشرح"]]},
+ {t:"قواعد عامة تساعد على الضبط",rows:[["الأطول أولًا","غالبًا يأتي الموضع الأطول في السورة الأسبق (البقرة قبل الأعراف…)، فاربط الزيادة بالسورة الأطول."],["السياق يحدد الكلمة","اسأل: عمّ تتحدث الآيات قبلها؟ (مثل «يخلق» لمريم و«يفعل» لزكريا)."],["اجمع المتشابه معًا","إذا حفظت موضعًا فافتح المواضع الشبيهة فورًا وقارن بينها بخط تحت الفرق."],["اربط الآية ببداية الصفحة","احفظ أول كلمة في كل صفحة؛ فهي مفتاح الانتقال بين الصفحات."],["الفهم قبل الحفظ","اقرأ معنى الكلمات الغريبة وتفسيرًا مختصرًا قبل الحفظ؛ ما تفهمه يثبت أكثر."]]}
+];
+
+/* ---------- أدوات ---------- */
+const AD="٠١٢٣٤٥٦٧٨٩";
+const ar=n=>String(n).replace(/\d/g,d=>AD[d]);
+const nm=s=>S[s-1][1];
+/* تحويل المرجع "2:30-39" إلى "البقرة ٣٠–٣٩" */
+function refAr(r){
+  if(!r.includes(":")){
+    if(r.includes("-")){const [a,b]=r.split("-").map(Number);return `${nm(a)} – ${nm(b)}`;}
+    return `سورة ${nm(+r)}`;
+  }
+  const [s,a]=r.split(":"); const [x,y]=a.split("-");
+  const n=S[+s-1][2];
+  if(+x===1&&+y===n) return `سورة ${nm(+s)}`;
+  return `${nm(+s)} ${ar(x)}${y?"–"+ar(y):""}`;
+}
+const pageStart=j=>j===1?1:20*(j-1)+2;
+const pageEnd=j=>j===30?604:pageStart(j+1)-1;
+const cmp=(a,b)=>a[0]-b[0]||a[1]-b[1];
+function juzOf(s,a){let k=0;for(let i=0;i<30;i++){if(cmp([s,a],[J[i][0],J[i][1]])>=0)k=i;}return k+1;}
+function juzEnd(i){ if(i===29) return [114,6]; const [s,a]=J[i+1]; return a>1?[s,a-1]:[s-1,S[s-2][2]]; }
+function surahsIn(i){ const [s0]=J[i]; const [s1]=juzEnd(i); const out=[]; for(let s=s0;s<=s1;s++) out.push(S[s-1]); return out; }
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const goOf=r=>{const s=parseInt(r);const a=r.includes(":")?parseInt(r.split(":")[1]):1;return s+":"+a;};
+const markDiff=t=>esc(t).replace(/\*([^*]+)\*/g,"<mark>$1</mark>");
+const mutHTML=m=>`<div class="it"><h4>${esc(m.t)}</h4>${m.v.map(([r,t])=>`<div class="v"><span class="ref go" data-go="${goOf(r)}" role="link" tabindex="0">${esc(refAr(r))}</span><q>${markDiff(t)}</q></div>`).join("")}<div class="tip">للضبط: ${esc(m.tip)}</div></div>`;
+
+/* ---------- التقدّم ---------- */
+let done=new Set();
+try{ done=new Set(JSON.parse(localStorage.getItem("qmm-done")||"[]")); }catch(e){}
+function save(){ try{ localStorage.setItem("qmm-done",JSON.stringify([...done])); }catch(e){} }
+function paintProgress(){
+  document.getElementById("doneCount").textContent=ar(done.size);
+  document.getElementById("barFill").style.width=(done.size/30*100)+"%";
+  document.querySelectorAll(".cell").forEach(c=>c.classList.toggle("done",done.has(+c.dataset.j)));
+}
+
+/* ---------- الخريطة والبطاقات ---------- */
+const map=document.getElementById("map"), list=document.getElementById("juzList");
+J.forEach((j,i)=>{
+  const n=i+1;
+  const b=document.createElement("button");
+  b.className="cell"; b.dataset.j=n;
+  b.innerHTML=`<span class="n">الجزء ${ar(n)}</span><span class="l">${esc(j[3])}</span>`;
+  b.onclick=()=>document.getElementById("juz-"+n).scrollIntoView({behavior:"smooth",block:"start"});
+  map.appendChild(b);
+
+  const [es,ea]=juzEnd(i);
+  const chips=surahsIn(i).map(s=>`<span class="chip go ${s[3]==="M"?"mk":"md"}" data-go="${s[0]}:1" role="link" tabindex="0"><i class="dot" style="background:var(${s[3]==="M"?"--mecca":"--medina"})"></i>${ar(s[0])}. ${esc(s[1])}</span>`).join("");
+  const stories=j[5].map(([r,t])=>`<li><span class="ref go" data-go="${goOf(r)}" role="link" tabindex="0">${esc(refAr(r))}</span><span>${esc(t)}</span></li>`).join("");
+  const art=document.createElement("article");
+  art.className="juz"; art.id="juz-"+n;
+  art.innerHTML=`
+    <div class="juz-head">
+      <div class="juz-title"><span class="juz-num">${ar(n)}</span><span class="juz-name">${esc(j[2])}</span></div>
+      <label class="mem"><input type="checkbox" id="mem-${n}" ${done.has(n)?"checked":""}> تمّ الحفظ</label>
+    </div>
+    <div class="meta">من ${esc(nm(j[0]))} ${ar(j[1])} إلى ${esc(nm(es))} ${ar(ea)} · صفحات المصحف ${ar(pageStart(n))}–${ar(pageEnd(n))}</div>
+    <div class="hook"><b>للتذكّر</b>${esc(j[4])}</div>
+    <div class="chips">${chips}</div>
+    <ul class="stories">${stories}</ul>
+    <details class="box"><summary>معاني الكلمات الغريبة <small>(${ar(W[i].length)} كلمات)</small></summary>
+      <div class="words">${W[i].map(([w,m])=>`<div><b>${esc(w)}</b><span>${esc(m)}</span></div>`).join("")}</div></details>
+    <details class="box"><summary>متشابهات وتنبيهات للضبط <small>(${ar(M[i].length)})</small></summary>
+      <div class="mut">${M[i].map(mutHTML).join("")}</div></details>`;
+  art.querySelector("input").onchange=e=>{ e.target.checked?done.add(n):done.delete(n); save(); paintProgress(); };
+  list.appendChild(art);
+});
+paintProgress();
+
+/* ---------- فهرس القصص ---------- */
+const si=document.getElementById("storyIndex");
+STORIES.forEach(g=>{
+  si.insertAdjacentHTML("beforeend",`<div class="groupttl">${esc(g.g)}</div>`);
+  const grid=document.createElement("div"); grid.className="pgrid";
+  g.items.forEach(([n,d,refs])=>{
+    const juzs=[...new Set(refs.map(r=>{const [s,a]=r.split(":");return juzOf(+s,parseInt(a||"1"));}))];
+    grid.insertAdjacentHTML("beforeend",`<div class="pcard"><h3>${esc(n)}</h3><p>${esc(d)}</p><div class="refs">${refs.map(r=>`<span class="go" data-go="${goOf(r)}" role="link" tabindex="0">${esc(refAr(r))}</span>`).join("")}</div><p class="meta">في الأجزاء: ${juzs.map(ar).join("، ")}</p></div>`);
+  });
+  si.appendChild(grid);
+});
+
+/* ---------- جدول السور ---------- */
+const body=document.getElementById("sBody");
+const norm=t=>String(t).toLowerCase().replace(/[أإآ]/g,"ا").replace(/ة/g,"ه").replace(/ى/g,"ي").replace(/[ً-ْ]/g,"").replace(/[٠-٩]/g,d=>AD.indexOf(d));
+body.innerHTML=S.map(s=>`<tr data-k="${esc(norm(s.join(" ")))}"><td class="num">${ar(s[0])}</td><td class="nm"><span class="go" data-go="${s[0]}:1" role="link" tabindex="0">${esc(s[1])}</span></td><td class="num">${ar(s[2])}</td><td>${s[3]==="M"?"مكية":"مدنية"}</td><td class="num">${ar(juzOf(s[0],1))}</td><td>${esc(s[4])}</td></tr>`).join("");
+document.getElementById("q").addEventListener("input",e=>{
+  const q=norm(e.target.value.trim());
+  body.querySelectorAll("tr").forEach(tr=>tr.hidden=q&&!tr.dataset.k.includes(q));
+});
+
+/* ---------- مفاتيح التذكّر ---------- */
+document.getElementById("keys").innerHTML=KEYS.map(k=>`<div class="step"><h3>${esc(k.t)}</h3><div class="tablewrap" style="border:0"><table><tbody>${k.rows.map(([a,b])=>`<tr><td>${esc(a)}</td><td>${esc(b)}</td></tr>`).join("")}</tbody></table></div></div>`).join("");
+
+/* ---------- البطاقات ---------- */
+const fcSel=document.getElementById("fcJuz");
+fcSel.innerHTML=`<option value="0">كل الأجزاء</option>`+J.map((j,i)=>`<option value="${i+1}">الجزء ${ar(i+1)} — ${esc(j[2])}</option>`).join("");
+let deck=[],fi=0;
+function buildDeck(){
+  const v=+fcSel.value;
+  deck=(v?[v-1]:W.map((_,i)=>i)).flatMap(i=>W[i].map(([w,m])=>({w,m,j:i+1})));
+  fi=0; showCard();
+}
+function showCard(){
+  const c=deck[fi];
+  document.getElementById("fcW").textContent=c.w;
+  const m=document.getElementById("fcM"); m.textContent=c.m; m.hidden=true;
+  document.getElementById("fcH").textContent="اضغط لإظهار المعنى · الجزء "+ar(c.j);
+  document.getElementById("fcCount").textContent=`البطاقة ${ar(fi+1)} من ${ar(deck.length)}`;
+}
+document.getElementById("flash").onclick=()=>{document.getElementById("fcM").hidden=false;};
+document.getElementById("fcNext").onclick=()=>{fi=(fi+1)%deck.length;showCard();};
+document.getElementById("fcPrev").onclick=()=>{fi=(fi-1+deck.length)%deck.length;showCard();};
+document.getElementById("fcShuf").onclick=()=>{for(let i=deck.length-1;i>0;i--){const k=Math.floor(Math.random()*(i+1));[deck[i],deck[k]]=[deck[k],deck[i]];}fi=0;showCard();};
+fcSel.onchange=buildDeck;
+buildDeck();
+
+/* ---------- اختبار القصص ---------- */
+const QS=J.flatMap((j,i)=>j[5].map(([r,t])=>({t,j:juzOf(parseInt(r),parseInt(r.split(":")[1]||"1"))})));
+let right=0,total=0;
+function newQ(){
+  const q=QS[Math.floor(Math.random()*QS.length)];
+  const opts=new Set([q.j]);
+  while(opts.size<4){const d=q.j+Math.floor(Math.random()*9)-4;if(d>=1&&d<=30)opts.add(d);}
+  const arr=[...opts].sort(()=>Math.random()-.5);
+  document.getElementById("qzQ").textContent=q.t;
+  const box=document.getElementById("qzO");
+  box.innerHTML=arr.map(o=>`<button class="btn" data-o="${o}">الجزء ${ar(o)}</button>`).join("");
+  let answered=false;
+  box.querySelectorAll("button").forEach(b=>b.onclick=()=>{
+    if(answered)return; answered=true; total++;
+    const ok=+b.dataset.o===q.j; if(ok)right++;
+    box.querySelectorAll("button").forEach(x=>{ if(+x.dataset.o===q.j)x.classList.add("ok"); else if(x===b)x.classList.add("no"); });
+    document.getElementById("qzS").textContent=`النتيجة: ${ar(right)} من ${ar(total)}`;
+  });
+}
+document.getElementById("qzNext").onclick=newQ;
+newQ();
+
+/* ---------- المصحف ---------- */
+const TJ={ghunnah:"غنّة",hamzat_wasl:"همزة وصل",idghaam_ghunnah:"إدغام بغنّة",idghaam_mutajanisayn:"إدغام متجانسين",idghaam_mutaqaribayn:"إدغام متقاربين",idghaam_no_ghunnah:"إدغام بلا غنّة",idghaam_shafawi:"إدغام شفوي",ikhfa:"إخفاء",ikhfa_shafawi:"إخفاء شفوي",iqlab:"إقلاب",lam_shamsiyyah:"لام شمسية",madd_2:"مدّ طبيعي (٢)",madd_246:"مدّ عارض/لين (٢-٤-٦)",madd_6:"مدّ لازم (٦)",madd_munfasil:"مدّ منفصل (٤-٥)",madd_muttasil:"مدّ متصل (٤-٥)",qalqalah:"قلقلة",silent:"لا يُنطق"};
+const LORDER=["madd_6","madd_muttasil","madd_munfasil","madd_246","madd_2","ghunnah","ikhfa","ikhfa_shafawi","iqlab","idghaam_ghunnah","idghaam_no_ghunnah","idghaam_shafawi","idghaam_mutajanisayn","idghaam_mutaqaribayn","qalqalah","hamzat_wasl","lam_shamsiyyah","silent"];
+let QD=null, qLoading=null, curS=1;
+const pref=(k,d)=>{try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v);}catch(e){return d;}};
+const setPref=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
+let qfs=pref("qmm-qfs",30), tjOn=pref("qmm-tj",true), testOn=false, offRules=new Set(pref("qmm-off",[]));
+const mPage=document.getElementById("mPage"), mSel=document.getElementById("mSel");
+mSel.innerHTML=S.map(x=>`<option value="${x[0]}">${ar(x[0])}. سورة ${esc(x[1])}</option>`).join("");
+const offStyle=document.createElement("style"); document.head.appendChild(offStyle);
+function loadQuran(){
+  if(QD) return Promise.resolve(QD);
+  if(!qLoading) qLoading=new Promise((res,rej)=>{const sc=document.createElement("script");sc.src="quran-data.js";sc.onload=()=>{QD=window.QURAN_DATA;res(QD);};sc.onerror=()=>{qLoading=null;rej();};document.head.appendChild(sc);});
+  return qLoading;
+}
+function buildLegend(){
+  if(!QD) return;
+  document.getElementById("legendTj").innerHTML=LORDER.filter(r=>QD.rules.includes(r)).map(r=>{const i=QD.rules.indexOf(r);return `<label><input type="checkbox" data-rule="${i}" ${offRules.has(i)?"":"checked"}><i style="background:var(--tj${i})"></i>${TJ[r]}</label>`;}).join("");
+  document.querySelectorAll("#legendTj input").forEach(c=>c.onchange=()=>{const i=+c.dataset.rule;c.checked?offRules.delete(i):offRules.add(i);setPref("qmm-off",[...offRules]);paintOff();});
+  paintOff();
+}
+function paintOff(){ offStyle.textContent=[...offRules].map(i=>`.qbody .tj.r${i}{color:inherit}`).join(""); }
+function ayahHTML(t,fl){
+  const chars=[...t]; const rule=new Array(chars.length).fill(-1);
+  for(let k=0;k<fl.length;k+=3){for(let x=fl[k+1];x<fl[k+2]&&x<chars.length;x++)rule[x]=fl[k];}
+  let out="",cur=-2,buf="";
+  const flush=()=>{if(!buf)return; out+=cur<0?esc(buf):`<span class="tj r${cur}" style="--c:var(--tj${cur})">${esc(buf)}</span>`; buf="";};
+  chars.forEach((c,x)=>{if(rule[x]!==cur){flush();cur=rule[x];}buf+=c;});
+  flush(); return out;
+}
+function juzStartsIn(s){const m={};J.forEach((j,i)=>{if(j[0]===s)m[j[1]]=i+1;});return m;}
+function renderSurah(s,ayah){
+  curS=s; mSel.value=s; setPref("qmm-surah",s);
+  const sd=S[s-1], ay=QD.s[s-1], js=juzStartsIn(s);
+  let h=`<div class="shead"><div class="frame">سورة ${esc(sd[1])}</div><div class="meta">${sd[3]==="M"?"مكية":"مدنية"} · آياتها ${ar(sd[2])} · الجزء ${ar(juzOf(s,1))}</div></div>`;
+  if(s!==1&&s!==9) h+=`<div class="basmala">${ayahHTML(QD.s[0][0][0],QD.s[0][0][1])}</div>`;
+  h+=`<div class="qbody">`;
+  ay.forEach(([t,fl],k)=>{const a=k+1;
+    if(js[a]&&!(s===1&&a===1)) h+=`<span class="juzmark">— بداية الجزء ${ar(js[a])} —</span>`;
+    h+=`<span class="ay" id="ay-${s}-${a}">${ayahHTML(t,fl)}<span class="anum">﴿${ar(a)}﴾</span></span> `;});
+  h+=`</div>`;
+  mPage.innerHTML=h; applyModes();
+  if(ayah&&ayah>1){const el=document.getElementById(`ay-${s}-${ayah}`); if(el){el.scrollIntoView({block:"center"});el.classList.add("hl");setTimeout(()=>el.classList.remove("hl"),2200);}}
+  else document.getElementById("p-mushaf").scrollIntoView({block:"start"});
+}
+function applyModes(){
+  mPage.style.setProperty("--qfs",qfs+"px");
+  mPage.classList.toggle("plain",!tjOn); mPage.classList.toggle("test",testOn);
+  const tb=document.getElementById("tjBtn"); tb.classList.toggle("on",tjOn); tb.setAttribute("aria-pressed",tjOn);
+  const xb=document.getElementById("testBtn"); xb.classList.toggle("on",testOn); xb.setAttribute("aria-pressed",testOn);
+  document.getElementById("legendTj").style.opacity=tjOn?1:.4;
+}
+function openSurah(s,a){
+  show("mushaf");
+  if(!QD) mPage.innerHTML=`<div class="loading">جارٍ تحميل المصحف…</div>`;
+  loadQuran().then(()=>{buildLegend();renderSurah(s,a);}).catch(()=>{mPage.innerHTML=`<div class="loading">تعذّر تحميل نص المصحف. تحقّق من اتصالك ثم أعد فتح التبويب.</div>`;});
+}
+mPage.addEventListener("click",e=>{ if(!testOn)return; const a=e.target.closest(".ay"); if(a)a.classList.toggle("shown"); });
+mSel.onchange=()=>openSurah(+mSel.value);
+const step=d=>()=>openSurah(Math.min(114,Math.max(1,curS+d)));
+["mPrev","mPrev2"].forEach(id=>document.getElementById(id).onclick=step(-1));
+["mNext","mNext2"].forEach(id=>document.getElementById(id).onclick=step(1));
+document.getElementById("fPlus").onclick=()=>{qfs=Math.min(56,qfs+3);setPref("qmm-qfs",qfs);applyModes();};
+document.getElementById("fMinus").onclick=()=>{qfs=Math.max(18,qfs-3);setPref("qmm-qfs",qfs);applyModes();};
+document.getElementById("tjBtn").onclick=()=>{tjOn=!tjOn;setPref("qmm-tj",tjOn);applyModes();};
+document.getElementById("testBtn").onclick=()=>{testOn=!testOn;mPage.querySelectorAll(".ay.shown").forEach(x=>x.classList.remove("shown"));applyModes();};
+function goHandler(e){const g=e.target.closest("[data-go]"); if(!g)return; if(e.type==="keydown"&&e.key!=="Enter")return; const [s,a]=g.dataset.go.split(":").map(Number); openSurah(s,a);}
+document.addEventListener("click",goHandler); document.addEventListener("keydown",goHandler);
+
+/* ---------- التسميع والتصحيح ---------- */
+let QS2=null,qsLoading=null;
+function loadSimple(){ if(QS2) return Promise.resolve(QS2);
+  if(!qsLoading) qsLoading=new Promise((res,rej)=>{const sc=document.createElement("script");sc.src="quran-simple.js";sc.onload=()=>{QS2=window.QURAN_SIMPLE;res(QS2);};sc.onerror=()=>{qsLoading=null;rej();};document.head.appendChild(sc);});
+  return qsLoading; }
+const rSel=document.getElementById("rSel"), rFrom=document.getElementById("rFrom"), rTo=document.getElementById("rTo");
+rSel.innerHTML=S.map(x=>`<option value="${x[0]}">${ar(x[0])}. سورة ${esc(x[1])}</option>`).join("");
+function setRange(s,from,to){ rSel.value=s; const n=S[s-1][2]; rFrom.max=rTo.max=n; rFrom.value=from||1; rTo.value=to||Math.min(n,(from||1)+9); }
+rSel.onchange=()=>setRange(+rSel.value,1);
+setRange(pref("qmm-rs",1),1);
+const nrm=w=>w.replace(/[ً-ْٰـۖ-ۭ]/g,"").replace(/[أإآٱ]/g,"ا").replace(/ى/g,"ي").replace(/ة/g,"ه").replace(/ؤ/g,"و").replace(/ئ/g,"ي").replace(/[^ء-ي]/g,"");
+const toWords=t=>t.split(/\s+/).map(w=>({raw:w,n:nrm(w)})).filter(w=>w.n);
+function lev(a,b){const m=a.length,n=b.length;let p=Array.from({length:n+1},(_,j)=>j);for(let i=1;i<=m;i++){const c=[i];for(let j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c;}return p[n];}
+function simW(a,b){ if(a===b) return "ok"; const d=lev(a,b), L=Math.max(a.length,b.length); if((d===1&&L>=3)||(d===2&&L>=7)) return "near"; return null; }
+/* محاذاة كلمات الآية المتوقعة مع كلمات القارئ */
+function align(exp,got){
+  const m=exp.length,n=got.length,C=[],B=[];
+  for(let i=0;i<=m;i++){C.push(new Array(n+1).fill(0));B.push(new Array(n+1).fill(0));}
+  for(let i=1;i<=m;i++){C[i][0]=i;B[i][0]=1;} for(let j=1;j<=n;j++){C[0][j]=j;B[0][j]=2;}
+  for(let i=1;i<=m;i++)for(let j=1;j<=n;j++){
+    const s=simW(exp[i-1].n,got[j-1].n), sub=C[i-1][j-1]+(s==="ok"?0:s==="near"?0.4:1.1);
+    const del=C[i-1][j]+1, ins=C[i][j-1]+1;
+    if(sub<=del&&sub<=ins){C[i][j]=sub;B[i][j]=3;} else if(del<=ins){C[i][j]=del;B[i][j]=1;} else {C[i][j]=ins;B[i][j]=2;}
+  }
+  const ops=[];let i=m,j=n;
+  while(i>0||j>0){const b=B[i][j];
+    if(b===3){const s=simW(exp[i-1].n,got[j-1].n);ops.push({e:i-1,g:j-1,st:s||"bad"});i--;j--;}
+    else if(b===1){ops.push({e:i-1,st:"miss"});i--;} else {ops.push({g:j-1,st:"extra"});j--;}}
+  return ops.reverse();
+}
+let R={s:1,from:1,to:1,cur:1,res:{},hints:new Set(),base:0,done:false};
+let rec=null,listening=false,committed="",session="";
+const $=id=>document.getElementById(id);
+function expWords(){ return toWords(QS2[R.s-1][R.cur-1]); }
+function userText(){ return $("rIn").value; }
+function stripBasmala(ws){ if(R.cur===1&&R.s!==1&&R.s!==9){const b=["بسم","الله","الرحمن","الرحيم"];if(ws.length>=4&&b.every((x,k)=>ws[k].n===x))return ws.slice(4);} return ws; }
+function evaluate(live){
+  const exp=expWords(), got=stripBasmala(toWords(userText()));
+  const ops=align(exp,got);
+  if(live){ let last=-1; ops.forEach((o,k)=>{if(o.st!=="miss")last=k;}); ops.forEach((o,k)=>{if(k>last&&o.st==="miss")o.st="pend";}); }
+  return {exp,got,ops};
+}
+function render(ev,final){
+  const t=$("rTarget"); let h="";
+  ev.ops.forEach(o=>{
+    if(o.e===undefined){h+=`<span class="w extra">${esc(ev.got[o.g].raw)}</span>`;return;}
+    const e=ev.exp[o.e].raw;
+    if(o.st==="pend"){ h+=R.hints.has(o.e)?`<span class="w hint">${esc(e)}</span>`:`<span class="w pend">${esc(e)}</span>`; return; }
+    if(o.st==="ok") h+=`<span class="w ${R.hints.has(o.e)?"hint":"ok"}">${esc(e)}</span>`;
+    else if(o.st==="near") h+=`<span class="w near">${esc(e)}<small>كتبتَ: ${esc(ev.got[o.g].raw)}</small></span>`;
+    else if(o.st==="bad") h+=`<span class="w bad">${esc(e)}<small>قلتَ: ${esc(ev.got[o.g].raw)}</small></span>`;
+    else h+=`<span class="w miss">${esc(e)}</span>`;
+  });
+  t.innerHTML=h+`<span class="anum">﴿${ar(R.cur)}﴾</span>`;
+}
+function stats(ev){ const c={ok:0,near:0,bad:0,miss:0,extra:0,pend:0}; ev.ops.forEach(o=>c[o.st]++); return c; }
+function showPos(){
+  $("rPos").textContent=`سورة ${S[R.s-1][1]} — الآية ${ar(R.cur)} (${ar(R.cur-R.from+1)} من ${ar(R.to-R.from+1)})`;
+  $("rPrev").textContent=R.cur>1?`﴿${ar(R.cur-1)}﴾ ${QS2[R.s-1][R.cur-2]}`:"";
+  const done=Object.values(R.res); const acc=done.length?Math.round(done.reduce((a,x)=>a+x.acc,0)/done.length):null;
+  $("rScoreTop").textContent=acc===null?"":`الدقة حتى الآن: ${ar(acc)}٪`;
+}
+function startAyah(){
+  R.hints=new Set(); R.done=false; $("rIn").value=""; $("rMsg").textContent=""; $("rMsg").className="rmsg";
+  baseReset(); showPos(); render(evaluate(true),false);
+}
+function finish(auto){
+  const ev=evaluate(false); render(ev,true); const c=stats(ev);
+  const total=ev.exp.length, good=c.ok+c.near-[...R.hints].length;
+  const acc=Math.max(0,Math.round(100*good/total));
+  R.res[R.cur]={acc,bad:c.bad,miss:c.miss,near:c.near,extra:c.extra,hints:R.hints.size};
+  saveWeak(R.s,R.cur,c.bad+c.miss+R.hints.size>0);
+  R.done=true; const m=$("rMsg");
+  if(c.bad+c.miss===0&&R.hints.size===0){ m.className="rmsg good"; m.textContent=c.near?`أحسنت! الحفظ صحيح، مع ${ar(c.near)} خطأ إملائي بسيط (مظلَّل بالأصفر).`:"ما شاء الله! الآية صحيحة كاملة."; }
+  else { m.className="rmsg warn"; m.textContent=`راجع هذه الآية: ${ar(c.bad)} كلمة خاطئة، ${ar(c.miss)} ناقصة${c.extra?`، ${ar(c.extra)} زائدة`:""}${R.hints.size?`، ${ar(R.hints.size)} تلميح`:""}.`; }
+  showPos();
+  return c.bad+c.miss===0&&R.hints.size===0;
+}
+function nextAyah(){ if(R.cur<R.to){R.cur++;startAyah();} else summary(); }
+function summary(){
+  stopMic(); $("rPanel").hidden=true; const sm=$("rSummary"); sm.hidden=false;
+  const rows=[]; for(let a=R.from;a<=R.to;a++){const r=R.res[a]; rows.push(`<tr><td class="num"><span class="go" data-go="${R.s}:${a}">${ar(a)}</span></td><td>${r?ar(r.acc)+"٪":"—"}</td><td>${r?ar(r.bad+r.miss):"—"}</td><td>${r?ar(r.near):"—"}</td><td>${r?ar(r.hints):"—"}</td></tr>`);}
+  const vals=Object.values(R.res), avg=vals.length?Math.round(vals.reduce((a,x)=>a+x.acc,0)/vals.length):0;
+  const weak=Object.entries(R.res).filter(([a,r])=>r.bad+r.miss+r.hints>0).map(([a])=>+a);
+  sm.innerHTML=`<h3 style="margin:0">انتهى التسميع — الدقة ${ar(avg)}٪</h3>
+   <div class="tablewrap"><table><thead><tr><th>الآية</th><th>الدقة</th><th>أخطاء/نقص</th><th>إملائي</th><th>تلميحات</th></tr></thead><tbody>${rows.join("")}</tbody></table></div>
+   <div class="row">${weak.length?`<button class="btn pri" id="rRedoWeak">أعد الآيات التي فيها أخطاء (${ar(weak.length)})</button>`:""}<button class="btn" id="rRedoAll">أعد التسميع من البداية</button><button class="btn" id="rNextRange">المقطع التالي</button></div>`;
+  if(weak.length) $("rRedoWeak").onclick=()=>{R.queue=weak;beginRange(R.s,weak[0],weak[weak.length-1],weak);};
+  $("rRedoAll").onclick=()=>beginRange(R.s,R.from,R.to);
+  $("rNextRange").onclick=()=>{const n=S[R.s-1][2]; if(R.to<n){beginRange(R.s,R.to+1,Math.min(n,R.to+10));} else if(R.s<114){beginRange(R.s+1,1,Math.min(S[R.s][2],10));}};
+  renderWeak();
+}
+function beginRange(s,from,to,only){
+  setRange(s,from,to); setPref("qmm-rs",s);
+  loadSimple().then(()=>{
+    const n=S[s-1][2]; from=Math.max(1,Math.min(n,from)); to=Math.max(from,Math.min(n,to));
+    R={s,from,to,cur:from,res:{},hints:new Set(),only:only||null,done:false};
+    $("rSummary").hidden=true; $("rPanel").hidden=false; startAyah(); $("rIn").focus();
+  }).catch(()=>{$("rWeak").textContent="تعذّر تحميل نص الآيات، أعد المحاولة.";});
+}
+const origNext=nextAyah;
+nextAyah=function(){ if(R.only){const k=R.only.indexOf(R.cur); if(k<R.only.length-1){R.cur=R.only[k+1];startAyah();} else summary(); } else origNext(); };
+$("rStart").onclick=()=>beginRange(+rSel.value,+rFrom.value||1,+rTo.value||1);
+$("rCheck").onclick=()=>finish(false);
+$("rNext").onclick=()=>{ if(!R.done) finish(false); nextAyah(); };
+$("rRetry").onclick=()=>startAyah();
+$("rShow").onclick=()=>{ const ev=evaluate(false); ev.exp.forEach((_,k)=>R.hints.add(k)); $("rIn").value=QS2[R.s-1][R.cur-1]; finish(false); };
+$("rHint").onclick=()=>{ const ev=evaluate(true); const o=ev.ops.find(o=>o.st==="pend"||o.st==="miss"); if(o){R.hints.add(o.e); render(ev,false);} };
+$("rIn").addEventListener("input",()=>{ if(!R.done) render(evaluate(true),false); });
+$("toRecite").onclick=()=>{ show("recite"); setRange(curS,1); };
+/* الترتيل بالصوت */
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function baseReset(){ committed=""; session=""; if(listening&&rec){ try{rec.abort();}catch(e){} } }
+function stopMic(){ listening=false; if(rec){try{rec.stop();}catch(e){}} $("rMic").classList.remove("rec"); $("rMic").textContent="رتّل بالصوت"; }
+function startMic(){
+  if(!SR){ $("rMsg").className="rmsg warn"; $("rMsg").textContent="التعرّف على الصوت غير متاح في هذا المتصفح. استعمل Google Chrome، أو اكتب الآية بلوحة المفاتيح."; return; }
+  rec=new SR(); rec.lang="ar-SA"; rec.continuous=true; rec.interimResults=true;
+  rec.onresult=e=>{ let t=""; for(let k=0;k<e.results.length;k++) t+=e.results[k][0].transcript+" "; session=t;
+    $("rIn").value=(committed+" "+session).trim(); if(R.done) return;
+    const ev=evaluate(true); render(ev,false); const c=stats(ev);
+    const last=e.results[e.results.length-1];
+    if(c.pend===0&&last.isFinal){ const clean=finish(true); if(clean) setTimeout(()=>{ if(R.done) nextAyah(); },900); else stopMic(); } };
+  rec.onerror=e=>{ if(e.error==="not-allowed"||e.error==="service-not-allowed"){ stopMic(); $("rMsg").className="rmsg warn"; $("rMsg").textContent="لم يُسمح باستعمال الميكروفون هنا. اسمح بالوصول إلى الميكروفون من إعدادات المتصفح، أو اكتب الآية."; } };
+  rec.onend=()=>{ committed=(committed+" "+session).trim(); session=""; if(listening){ try{rec.start();}catch(e){} } };
+  listening=true; try{rec.start();}catch(e){}
+  $("rMic").classList.add("rec"); $("rMic").textContent="إيقاف الترتيل";
+}
+$("rMic").onclick=()=>listening?stopMic():startMic();
+/* آيات تحتاج مراجعة */
+function saveWeak(s,a,isWeak){ const w=pref("qmm-weak",{}); const k=s+":"+a; if(isWeak) w[k]=(w[k]||0)+1; else delete w[k]; setPref("qmm-weak",w); }
+function renderWeak(){ const w=pref("qmm-weak",{}); const ks=Object.keys(w);
+  $("rWeak").innerHTML=ks.length?`<b>آيات تحتاج مراجعة:</b> `+ks.slice(0,30).map(k=>{const [s,a]=k.split(":");return `<span class="go chip" data-go="${k}">${esc(S[s-1][1])} ${ar(a)}</span>`;}).join(" "):""; }
+renderWeak();
+
+/* ---------- التبويبات ---------- */
+const tabs=[...document.querySelectorAll("nav.tabs button")];
+function show(t){
+  tabs.forEach(b=>b.setAttribute("aria-selected",b.dataset.tab===t));
+  ["map","mushaf","recite","stories","keys","quiz","surahs","method"].forEach(p=>document.getElementById("p-"+p).hidden=p!==t);
+  try{localStorage.setItem("qmm-tab",t);}catch(e){}
+}
+tabs.forEach(b=>b.onclick=()=>{ if(b.dataset.tab==="recite") loadSimple().catch(()=>{}); if(b.dataset.tab==="mushaf") openSurah(QD?curS:pref("qmm-surah",1)); else show(b.dataset.tab); });
+try{ const t=localStorage.getItem("qmm-tab"); if(t==="mushaf") openSurah(pref("qmm-surah",1)); else if(t) show(t); }catch(e){}
+</script>
+
+</body>
+</html>
